@@ -1,0 +1,3 @@
+<%= turbo_stream.update "#{dom_id(@page)}_content" do %>
+  <%= render partial: "pages/content", locals: { page: @page } %>
+<% end %>

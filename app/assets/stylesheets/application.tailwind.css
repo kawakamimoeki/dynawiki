@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.prose a {
+  color: blue;
+}
+
+.prose a:hover {
+  opacity: 0.7;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+.prose {
+  max-width: 100%;
+}

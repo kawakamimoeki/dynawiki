@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DynamicWiki</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= vite_client_tag %>
+    <%= vite_javascript_tag 'application' %>
+    <!--
+      If using a TypeScript entrypoint file:
+        vite_typescript_tag 'application'
+
+      If using a .jsx or .tsx entrypoint, add the extension:
+        vite_javascript_tag 'application.jsx'
+
+      Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
+    -->
+
+  </head>
+
+  <body>
+    <header class="py-3 px-5 flex justify-between">
+      <div>
+        <div class="font-bold text-xl">
+          <a href="/">Dynawiki</a>
+        </div>
+
+        <div class="text-sm opacity-70">Experiments with dynamic wikis using LLM</div>
+      </div>
+      <%= turbo_stream_from "now" %>
+      <div class="flex gap-1">
+      Latest:
+      <div id="now">
+      </div>
+      </div>
+      </div>
+    </header>
+    <main class="p-5">
+      <%= yield %>
+    </main>
+  </body>
+</html>

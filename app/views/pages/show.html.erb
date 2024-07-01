@@ -1,0 +1,28 @@
+<%= turbo_stream_from "#{dom_id(@page)}" %>
+
+<div class="rounded max-w-[800px] border p-8 mx-auto">
+  <h1 class="font-bold text-3xl mb-3"><%= @page.title %></h1>
+  <div id="<%= dom_id(@page) %>_content" class="prose" data-controller="page" data-page-id-value="<%= @page.id %>">
+    <%= render partial: "pages/content", locals: { page: @page } %>
+  </div>
+  <a id="actionButton" class="shadow-lg bg-white border hover:bg-slate-50 rounded-lg py-1 px-3 absolute gap-1" style="display: none;">
+    <img class="w-[18px] h-[18px] mt-[3px]" src="/read.png" />
+    <span>Read<span>
+  </a>
+  <div class="flex gap-4 justify-center items-center pt-10">
+    <%= form_with(url: add_page_path(@page), id: "submit") do |form| %>
+      <%= form.hidden_field :reset, value: "1" %>
+      <%= form.button type: :submit, class: "rounded-full border px-5 py-2 inline-flex gap-2 hover:bg-slate-50" do %>
+        <img class="w-[18px] h-[18px] mt-[3px]" src="/more.png" />
+        <span>More</span>
+      <% end %>
+    <% end %>
+    <%= form_with(url: update_page_path(@page), id: "submit") do |form| %>
+      <%= form.hidden_field :reset, value: "1" %>
+      <%= form.button type: :submit, class: "rounded-full border px-5 py-2 inline-flex gap-2 hover:bg-slate-50" do %>
+        <img class="w-[18px] h-[18px] mt-[3px]" src="/reload.png" />
+        <span>Regenerate</span>
+      <% end %>
+    <% end %>
+    </div>
+</div>
