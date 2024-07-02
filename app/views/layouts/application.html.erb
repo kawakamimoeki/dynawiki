@@ -24,11 +24,16 @@
 
   <body>
     <header class="py-3 px-5 flex justify-between border-b items-center">
-      <div>
-        <div class="font-bold text-xl">
-          <a href="/">Dynawiki</a>
-        </div>
+      <div class="flex items-center gap-2">
+      <div class="font-bold text-xl">
+        <a href="/">Dynawiki</a>
       </div>
+
+      <div>
+        <a href="https://github.com/kawakamimoeki/dynawiki">GitHub</a>
+      </div>
+      </div>
+
       <form method="POST" action="/search">
         <input type="search" name="q" placeholder="Search" class="border rounded py-1 px-2" />
       </form>
