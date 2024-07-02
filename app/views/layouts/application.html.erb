@@ -37,6 +37,7 @@
         <%= turbo_stream_from "now" %>
       Latest:
       <div id="now">
+        <%= render partial: "pages/now", locals: { page: Page.order(updated_at: :desc).first } %>
       </div>
       </div>
       </div>
