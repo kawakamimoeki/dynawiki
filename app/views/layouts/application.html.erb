@@ -23,16 +23,18 @@
   </head>
 
   <body>
-    <header class="py-3 px-5 flex justify-between">
+    <header class="py-3 px-5 flex justify-between border-b items-center">
       <div>
         <div class="font-bold text-xl">
           <a href="/">Dynawiki</a>
         </div>
-
-        <div class="text-sm opacity-70">Experiments with dynamic wikis using LLM</div>
       </div>
-      <%= turbo_stream_from "now" %>
+      <form method="POST" action="/search">
+        <input type="search" name="q" placeholder="Search" class="border rounded py-1 px-2" />
+      </form>
+
       <div class="flex gap-1">
+        <%= turbo_stream_from "now" %>
       Latest:
       <div id="now">
       </div>
