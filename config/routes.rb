@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   post "/search", to: "pages#search", as: :search_page
   post "/:id", to: "pages#update", as: :update_page
   post "/:id/more", to: "pages#add", as: :add_page
+  delete "/:id", to: "pages#destroy", as: :destroy_page
 end

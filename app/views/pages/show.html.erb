@@ -24,5 +24,7 @@
         <span>Regenerate</span>
       <% end %>
     <% end %>
+
+    <%= link_to "Delete", destroy_page_path(@page), data: { turbo_method: "delete", turbo_confirm: "Are you sure you want to delete?" }, class: "rounded-full border px-5 py-2 inline-flex gap-2 hover:bg-slate-50" %>
     </div>
 </div>

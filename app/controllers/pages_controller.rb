@@ -13,6 +13,13 @@ class PagesController < ApplicationController
     @page = Page.create(title: params[:title], content: "")
   end
 
+  def destroy
+    @page = Page.find_by(id: params[:id])
+    @page.destroy
+
+    redirect_to "/"
+  end
+
   def update
     @page = Page.find_by(id: params[:id])
 
