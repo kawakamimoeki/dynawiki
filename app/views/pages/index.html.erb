@@ -2,6 +2,8 @@
   <input type="search" name="q" placeholder="Search" class="border rounded py-1 px-2 mb-3" />
 </form>
 
+<img src="/demo.gif" class="border rounded mb-4" />
+
 <% Page.select(:title).distinct.each do |page| %>
   <div><a class="" href="/<%= page.title %>"><%= page.title %></a></div>
 <% end %>
