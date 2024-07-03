@@ -23,6 +23,7 @@ export default class extends Controller {
       });
 
     window.addEventListener("mouseup", this.select);
+    window.addEventListener("touchend", this.select);
   }
 
   select(e) {
