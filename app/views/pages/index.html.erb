@@ -4,6 +4,6 @@
 
 <img src="/demo.gif" class="border rounded mb-4" />
 
-<% Page.select(:title).distinct.each do |page| %>
+<% Page.select(:title).distinct.order(title: :desc).each do |page| %>
   <div><a class="" href="/<%= page.title %>"><%= page.title %></a></div>
 <% end %>
