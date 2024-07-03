@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   root "pages#index"
   get "/wiki/:title", to: "pages#show"
-  post "/wiki/search", to: "pages#search", as: :search_page
+  post "/search", to: "pages#search", as: :search_page
   post "/wiki/:id", to: "pages#update", as: :update_page
   post "/wiki/:id/more", to: "pages#add", as: :add_page
   delete "/wiki/:id", to: "pages#destroy", as: :destroy_page
