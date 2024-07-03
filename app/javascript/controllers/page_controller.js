@@ -6,7 +6,7 @@ export default class extends Controller {
   };
 
   connect() {
-    fetch(`/${this.idValue}`, {
+    fetch(`/wiki/${this.idValue}`, {
       headers: {
         Accept: "text/vnd.turbo-stream.html",
         "X-CSRF-Token": document
@@ -36,6 +36,6 @@ export default class extends Controller {
     button.style.display = "flex";
     button.style.left = e.pageX + "px";
     button.style.top = e.pageY + "px";
-    button.href = `/${window.getSelection().toString()}`;
+    button.href = `/wiki/${window.getSelection().toString()}`;
   }
 }
