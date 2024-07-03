@@ -2,8 +2,10 @@
 
 <div class="rounded max-w-[800px] border p-8 mx-auto">
   <h1 class="font-bold text-3xl mb-3"><%= @page.title %></h1>
-  <div id="<%= dom_id(@page) %>_content" class="prose" data-controller="page" data-page-id-value="<%= @page.id %>">
+  <div data-controller="page" data-page-id-value="<%= @page.id %>">
+  <div id="<%= dom_id(@page) %>_content" class="prose">
     <%= render partial: "pages/content", locals: { page: @page } %>
+  </div>
   </div>
   <a id="actionButton" class="shadow-lg bg-white border hover:bg-slate-50 rounded-lg py-1 px-3 absolute gap-1" style="display: none;">
     <img class="w-[18px] h-[18px] mt-[3px]" src="/read.png" />
