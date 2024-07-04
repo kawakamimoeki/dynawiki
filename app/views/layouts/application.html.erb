@@ -39,8 +39,8 @@
       </div>
       <div class="flex gap-1">
         <%= turbo_stream_from "now" %>
-      Latest:
-      <div id="now" class="w-[200px] truncate">
+      <div id="now" class="w-[200px] truncate text-right">
+        Latest:
         <%= render partial: "pages/now", locals: { page: Page.order(updated_at: :desc).first } %>
       </div>
       </div>
