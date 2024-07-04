@@ -4,7 +4,7 @@
 <p class="">Dynamic Wiki Experimentation with LLM</p>
 </div>
 <img src="/demo.gif" class="border rounded mb-4" />
-<div class="mb-5 border p-4 rounded bg-white">
+<div class="mb-5">
 <p>DynawikiはLLMによって動的にページが生成されるWikiです。ユーザーが選択したテキストのページをLLMが自動的に作成します。</p>
 
 <p>用途としては主に新しい分野の勉強に良いかと思っていますが、まだ使い方の可能性は未知数です。</p>
@@ -13,14 +13,13 @@
 
 <p>現在は、誰でも利用可能なのでぜひいろいろ試してみてください。</p>
 
-<p>まずは下の検索窓からなにか気になるワードを検索するところから始めると良いと思います。</p>
+<p>まずはヘッダーの窓になにか気になるワードを入力してみてください。</p>
 </div>
 
-<form method="POST" action="/search" class="">
-  <input type="search" name="q" placeholder="Search" class="border rounded py-1 px-2 mb-3" />
-</form>
-
-
-<% Page.select(:title).distinct.order(title: :desc).each do |page| %>
-  <a class="px-4 py-1 rounded hover:bg-slate-50 border bg-white inline-block mb-2" href="/wiki/<%= page.title %>"><%= page.title %></a>
+<div class="prose">
+<ul>
+<% Page.select(:title, :updated_at).distinct.order(updated_at: :desc).each do |page| %>
+  <li><a href="/wiki/<%= page.title %>"><%= page.title %></a></li>
 <% end %>
+</ul>
+</div>

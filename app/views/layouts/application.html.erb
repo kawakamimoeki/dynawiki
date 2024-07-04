@@ -33,23 +33,9 @@
       <div class="font-bold text-xl">
         <a href="/">Dynawiki</a>
       </div>
-
-      <div>
-        <a href="https://github.com/kawakamimoeki/dynawiki">GitHub</a>
-      </div>
-      </div>
-
       <form method="POST" action="/search">
-        <input type="search" name="q" placeholder="Search" class="border rounded py-1 px-2" />
+        <input type="search" name="q" placeholder="Search or Create" class="border rounded py-1 px-2 min-w-[400px]" />
       </form>
-
-      <div class="flex gap-1">
-        <%= turbo_stream_from "now" %>
-      Latest:
-      <div id="now">
-        <%= render partial: "pages/now", locals: { page: Page.order(updated_at: :desc).first } %>
-      </div>
-      </div>
       </div>
     </header>
     <main class="p-5">
