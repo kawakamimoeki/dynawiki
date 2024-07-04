@@ -35,7 +35,7 @@ class UpdatePageJob
             content:
           }
         ],
-        temperature: 0.3,
+        temperature: 0.7,
         stream: stream_proc(page: page),
       }
     )
