@@ -37,15 +37,6 @@
         </div>
       </form>
       </div>
-      <div class="flex gap-1">
-        <%= turbo_stream_from "now" %>
-      <div class="w-[200px] truncate text-right">
-        Latest:
-        <span id="now">
-        <%= render partial: "pages/now", locals: { page: Page.order(updated_at: :desc).first } %>
-        </span>
-      </div>
-      </div>
     </header>
     <main class="p-5">
       <%= yield %>
