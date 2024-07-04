@@ -25,17 +25,17 @@ class PagesController < ApplicationController
 
     return if !params[:reset].present? && @page.content.present?
 
-    GetAiResponseJob.perform_async({ id: params[:id], mode: :update }.to_json)
+    UpdatePageJob.perform_async({ id: params[:id], mode: :update }.to_json)
 
     respond_to do |format|
       format.turbo_stream
     end
   end
 
-  def add
+  def expand
     @page = Page.find_by(id: params[:id])
 
-    GetAiResponseJob.perform_async({ id: params[:id], mode: :add }.to_json)
+    ExpandTextJob.perform_async({ id: params[:id], text: params[:text] }.to_json)
 
     respond_to do |format|
       format.turbo_stream

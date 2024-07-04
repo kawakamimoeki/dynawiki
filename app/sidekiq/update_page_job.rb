@@ -1,4 +1,4 @@
-class GetAiResponseJob
+class UpdatePageJob
   include Sidekiq::Job
   def perform(params)
     params = JSON.parse(params)
@@ -11,19 +11,18 @@ class GetAiResponseJob
 
   def call_openai(page:)
     content = <<~MARKDOWN
-      You are an LLM who will dynamically generate a wiki.
-      Please write a detailed description of "#{page.title}".
-      The more specialized the article, the more specific examples it contains, the more historical background it contains, the more valuable it is as an article.
+      <p>あなたはウィキを動的に生成するLLMです。「#{page.title}」についてウィキペディアのような詳細な説明を書いてください。より専門的であればあるほど、より具体的な事例が含まれていればいるほど、より歴史的背景が含まれていればいるほど、記事としての価値が高まります。章立てで文章を構成してください</p>
 
-      Settings:
-        Format: Markdown
-        Language: Japanese
-        Length: 800
-        Allowed Syntax: Heading, List, Bold
-      Markdown:
-        # #{page.title} 
+      <h3>条件:</h3>
+     <ul>
+        <li>フォーマット: HTML</li>
+        <li>言語: 日本語</li>
+        <li>長さ: 2000文字</li>
+      </ul>
+      <h3>HTML:</h3>
+        # #{page.title}
         #{page.content}
-      Continuation => 
+      続き =>
     MARKDOWN
     OpenAI::Client.new(
       access_token: ENV["OPENAI_ACCESS_TOKEN"]

@@ -6,6 +6,7 @@ export default class extends Controller {
   };
 
   connect() {
+    this.selection = null;
     fetch(`/wiki/${this.idValue}`, {
       headers: {
         Accept: "text/vnd.turbo-stream.html",
@@ -22,21 +23,58 @@ export default class extends Controller {
         document.body.insertAdjacentHTML("beforeend", doc.body.innerHTML);
       });
 
-    window.addEventListener("mouseup", this.select);
-    window.addEventListener("touchend", this.select);
+    this.element
+      .querySelector(".prose")
+      .addEventListener("mouseup", this.select.bind(this));
+    this.element
+      .querySelector(".prose")
+      .addEventListener("touchend", this.select.bind(this));
   }
 
   select(e) {
-    const button = document.querySelector("#actionButton");
+    const buttons = document.querySelector("#actionButtons");
+    const selection = window.getSelection();
 
-    if (window.getSelection().toString().length === 0) {
-      button.style.display = "none";
+    this.unwrap();
+
+    if (selection.toString().length === 0) {
+      buttons.style.display = "none";
+      this.selection = null;
       return;
     }
 
-    button.style.display = "flex";
-    button.style.left = e.pageX + "px";
-    button.style.top = e.pageY + "px";
-    button.href = `/wiki/${window.getSelection().toString()}`;
+    this.selection = selection;
+
+    buttons.style.display = "flex";
+    buttons.style.left = e.pageX + "px";
+    buttons.style.top = e.pageY + "px";
+
+    const range = selection.getRangeAt(0);
+    const docFragment = range.extractContents();
+
+    const span = document.createElement("span");
+    span.id = "expand";
+    span.appendChild(docFragment);
+    range.insertNode(span);
+    selection.removeAllRanges();
+    let newRange = document.createRange();
+    newRange.selectNode(span);
+    selection.addRange(newRange);
+
+    const readButton = document.querySelector("#readButton");
+    readButton.href = `/wiki/${selection.toString()}`;
+
+    const expandButton = document.querySelector("#expandButton");
+    expandButton.href = `/wiki/${this.idValue}/expand?text=${encodeURIComponent(
+      document.querySelector(".prose").innerHTML
+    )}`;
+  }
+
+  unwrap() {
+    console.log("unwrap");
+    const spans = document.querySelectorAll("#expand");
+    spans.forEach((span) => {
+      span.outerHTML = span.innerHTML;
+    });
   }
 }
