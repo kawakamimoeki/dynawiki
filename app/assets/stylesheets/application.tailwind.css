@@ -24,3 +24,43 @@
 .prose h1 {
   font-size: 1.5rem;
 }
+
+.autoComplete_wrapper {
+  position: relative;
+}
+
+.autoComplete_wrapper * {
+  transition: none;
+}
+
+.autoComplete_wrapper > input {
+  color: #333;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 1px;
+  height: auto;
+  padding: 2px;
+  background-image: none;
+  transition: none;
+  color: #333;
+}
+
+.autoComplete_wrapper > input:focus {
+  color: #333;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.autoComplete_wrapper > input::placeholder {
+  color: rgba(0, 0, 0, 0.3) !important;
+}
+
+#autoComplete_list_1 {
+  @apply border-[0.5px] absolute top-[36px] bg-white;
+}
+
+#autoComplete_list_1 li {
+  @apply border-[0.5px];
+}
+
+#autoComplete_list_1 li[aria-selected] {
+  @apply bg-slate-50;
+}
