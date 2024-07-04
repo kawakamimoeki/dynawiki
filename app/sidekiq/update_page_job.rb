@@ -20,7 +20,7 @@ class UpdatePageJob
         <li>長さ: 2000文字</li>
       </ul>
       <h3>HTML:</h3>
-        # #{page.title}
+        #{page.title}
         #{page.content}
       続き =>
     MARKDOWN
