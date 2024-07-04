@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
+import hljs from "highlight.js";
 
 export default class extends Controller {
   static values = {
@@ -7,6 +8,12 @@ export default class extends Controller {
   };
 
   connect() {
+    window.addEventListener("turbo:load", () => {
+      hljs.highlightAll();
+      this.element.querySelectorAll("pre code").forEach((el) => {
+        el.innerHTML = el.innerHTML.replace(/^\n+/, "").replace(/\n+$/, "");
+      });
+    });
     this.selection = null;
     fetch(`/wiki/${this.idValue}`, {
       headers: {
@@ -29,7 +36,7 @@ export default class extends Controller {
       .addEventListener("mouseup", this.select.bind(this));
     this.element
       .querySelector(".prose")
-      .addEventListener("touchend", this.select.bind(this));
+      .addEventListener("touchend", setTimeout(this.select.bind(this), 1));
   }
 
   select(e) {

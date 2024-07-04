@@ -68,3 +68,10 @@
 #autoComplete_list_1 li[aria-selected] {
   @apply bg-slate-50;
 }
+
+.prose code,
+.prose pre {
+  background-color: #f4f4f4;
+  padding: 2px !important;
+  @apply rounded-none;
+}

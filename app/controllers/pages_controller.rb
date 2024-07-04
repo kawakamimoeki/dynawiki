@@ -23,7 +23,12 @@ class PagesController < ApplicationController
   def update
     @page = Page.find_by(id: params[:id])
 
-    return if !params[:reset].present? && @page.content.present?
+    p @page.content
+
+    if !params[:reset].present? && @page.content.present?
+      render "pages/nothing"
+      return
+    end
 
     UpdatePageJob.perform_async({ id: params[:id], mode: :update }.to_json)
 
