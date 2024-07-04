@@ -24,5 +24,11 @@ export default class extends Controller {
       .addEventListener("selection", function (event) {
         event.target.value = event.detail.selection.value;
       });
+
+    document.querySelector("form").addEventListener("submit", this.encode);
+  }
+
+  encode(event) {
+    event.target.value = event.target.value;
   }
 }

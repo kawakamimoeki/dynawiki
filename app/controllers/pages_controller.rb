@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   include ActionView::RecordIdentifier
 
   def search
-    redirect_to "/wiki/#{params[:q]}", allow_other_host: true
+    redirect_to "/wiki/#{URI.encode_www_form_component(params[:q])}", allow_other_host: true
   end
 
   def show
