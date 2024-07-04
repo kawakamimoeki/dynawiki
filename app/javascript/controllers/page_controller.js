@@ -63,10 +63,10 @@ export default class extends Controller {
     selection.addRange(newRange);
 
     const jumpButton = document.querySelector("#jumpButton");
-    jumpButton.href = `/wiki/${selection.toString()}`;
+    jumpButton.href = encodeURIComponent(`/wiki/${selection.toString()}`);
 
     const digButton = document.querySelector("#digButton");
-    digButton.href = `/wiki/${this.titleValue} ${selection.toString()}`;
+    digButton.href = encodeURIComponent(`/wiki/${this.titleValue} ${selection.toString()}`);
   }
 
   unwrap() {
