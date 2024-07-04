@@ -38,7 +38,7 @@ class ExpandTextJob
             content:
           }
         ],
-        temperature: 0.7,
+        temperature: 0.3,
         stream: stream_proc(page: page),
       }
     )
