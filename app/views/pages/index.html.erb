@@ -18,7 +18,7 @@
 
 <div class="prose">
 <ul>
-<% Page.select(:title, :updated_at).distinct.order(updated_at: :desc).each do |page| %>
+<% Page.distinct.where.not(content: "").order(updated_at: :desc).each do |page| %>
   <li><a href="/wiki/<%= page.title %>"><%= page.title %></a></li>
 <% end %>
 </ul>
