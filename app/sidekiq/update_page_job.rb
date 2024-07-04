@@ -45,7 +45,15 @@ class UpdatePageJob
   def stream_proc(page:)
     proc do |chunk, _bytesize|
       new_content = chunk.dig("choices", 0, "delta", "content")
-      page.update(content: (page.content || "") + new_content) if new_content
+      if new_content
+        page.update(content: (page.content || "") + new_content)
+        page.broadcast_update_to(
+          "now",
+          partial: "pages/now",
+          locals: { page: page },
+          target: "now"
+        )
+      end
     end
   end
 end

@@ -10,14 +10,5 @@ class Page < ApplicationRecord
       locals: { page: self },
       target: "#{dom_id(self)}_content"
     )
-
-    if self.content.present?
-      broadcast_update_to(
-        "now",
-        partial: "pages/now",
-        locals: { page: self },
-        target: "now"
-      )
-    end
   end
 end
