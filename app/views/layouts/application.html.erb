@@ -29,13 +29,20 @@
     sans-serif;] bg-white'>
     <header class="py-3 px-5 flex justify-between border-b items-center">
       <div class="flex items-center gap-2">
-      <div class="font-bold text-xl">
+      <div class="font-bold">
         <a href="/">Dynawiki</a>
       </div>
       <form method="POST" action="/search" data-controller="search" data-search-list-value="<%= Page.select(:title).map { { title: _1.title } }.to_json %>">
           <input name="q" id="autoComplete">
         </div>
       </form>
+      </div>
+      <div class="flex gap-1">
+        <%= turbo_stream_from "now" %>
+      Latest:
+      <div id="now" class="w-[100px] truncate">
+        <%= render partial: "pages/now", locals: { page: Page.order(updated_at: :desc).first } %>
+      </div>
       </div>
     </header>
     <main class="p-5">
