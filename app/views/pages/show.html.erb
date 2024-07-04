@@ -16,6 +16,10 @@
       <img class="w-[18px] h-[18px] mt-[3px]" src="/expand.png" />
       <span>Expand<span>
     </a>
+    <a id="deleteButton" class="rounded-e-lg hover:bg-slate-50 py-1 px-3 gap-1 flex items-center" data-turbo-method="POST" data-turbo-confirm="Are you sure?" onclick="document.querySelector('#actionButtons').style.display = 'none';">
+      <img class="w-[18px] h-[18px] mt-[3px]" src="/delete.png" />
+      <span>Delete<span>
+    </a>
   </div>
   <div class="flex gap-4 justify-center items-center pt-10">
     <%= form_with(url: update_page_path(@page), id: "submit") do |form| %>

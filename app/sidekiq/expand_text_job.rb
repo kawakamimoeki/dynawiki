@@ -3,7 +3,7 @@ class ExpandTextJob
   def perform(params)
     params = JSON.parse(params)
     page = Page.find_by(id: params["id"].to_i)
-    match = params["text"].match(/(.*)<span id="expand">(.+)<\/span>(.*)/m)
+    match = params["text"].match(/(.*)<span id="target">(.+)<\/span>(.*)/m)
     @before = match[1]
     @target = match[2]
     @after = match[3]

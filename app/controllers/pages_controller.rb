@@ -41,4 +41,18 @@ class PagesController < ApplicationController
       format.turbo_stream
     end
   end
+
+  def delete
+    @page = Page.find_by(id: params[:id])
+
+    match = params[:text].match(/(.*)<span id="target">(.+)<\/span>(.*)/m)
+    before = match[1]
+    after = match[3]
+
+    @page.update(content: before + after)
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
 end

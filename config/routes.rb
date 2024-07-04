@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   post "/search", to: "pages#search", as: :search_page
   post "/wiki/:id", to: "pages#update", as: :update_page
   post "/wiki/:id/expand", to: "pages#expand", as: :expand_page
+  post "/wiki/:id/delete", to: "pages#delete", as: :delete_page
   delete "/wiki/:id", to: "pages#destroy", as: :destroy_page
 end

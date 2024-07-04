@@ -53,7 +53,7 @@ export default class extends Controller {
     const docFragment = range.extractContents();
 
     const span = document.createElement("span");
-    span.id = "expand";
+    span.id = "target";
     span.appendChild(docFragment);
     range.insertNode(span);
     selection.removeAllRanges();
@@ -68,11 +68,16 @@ export default class extends Controller {
     expandButton.href = `/wiki/${this.idValue}/expand?text=${encodeURIComponent(
       document.querySelector(".prose").innerHTML
     )}`;
+
+    const deleteButton = document.querySelector("#deleteButton");
+    deleteButton.href = `/wiki/${this.idValue}/delete?text=${encodeURIComponent(
+      document.querySelector(".prose").innerHTML
+    )}`;
   }
 
   unwrap() {
     console.log("unwrap");
-    const spans = document.querySelectorAll("#expand");
+    const spans = document.querySelectorAll("#target");
     spans.forEach((span) => {
       span.outerHTML = span.innerHTML;
     });
