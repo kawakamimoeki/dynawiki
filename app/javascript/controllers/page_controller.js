@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static values = {
     id: String,
+    title: String,
   };
 
   connect() {
@@ -61,18 +62,11 @@ export default class extends Controller {
     newRange.selectNode(span);
     selection.addRange(newRange);
 
-    const readButton = document.querySelector("#readButton");
-    readButton.href = `/wiki/${selection.toString()}`;
+    const jumpButton = document.querySelector("#jumpButton");
+    jumpButton.href = `/wiki/${selection.toString()}`;
 
-    const expandButton = document.querySelector("#expandButton");
-    expandButton.href = `/wiki/${this.idValue}/expand?text=${encodeURIComponent(
-      document.querySelector(".prose").innerHTML
-    )}`;
-
-    const deleteButton = document.querySelector("#deleteButton");
-    deleteButton.href = `/wiki/${this.idValue}/delete?text=${encodeURIComponent(
-      document.querySelector(".prose").innerHTML
-    )}`;
+    const digButton = document.querySelector("#digButton");
+    digButton.href = `/wiki/${this.titleValue} ${selection.toString()}`;
   }
 
   unwrap() {
