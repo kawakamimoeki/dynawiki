@@ -36,7 +36,7 @@ export default class extends Controller {
       .addEventListener("mouseup", this.select.bind(this));
     this.element
       .querySelector(".prose")
-      .addEventListener("touchend", setTimeout(this.select.bind(this), 1));
+      .addEventListener("touchend", this.select.bind(this));
   }
 
   select(e) {
@@ -74,7 +74,7 @@ export default class extends Controller {
 
     const digButton = document.querySelector("#digButton");
     digButton.href = `/wiki/${encodeURIComponent(
-      `${this.titleValue} ${selection.toString()}`
+      `${this.titleValue} ${selection.toString()}`,
     )}`;
   }
 
