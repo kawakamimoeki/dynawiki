@@ -23,8 +23,6 @@ class PagesController < ApplicationController
   def update
     @page = Page.find_by(id: params[:id])
 
-    p @page.content
-
     if !params[:reset].present? && @page.content.present?
       render "pages/nothing"
       return

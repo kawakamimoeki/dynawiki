@@ -1,3 +1,3 @@
 import "@hotwired/turbo-rails";
 import "../controllers";
-import "highlight.js/styles/purebasic.css";
+import "highlight.js/styles/github.css";

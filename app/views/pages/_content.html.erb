@@ -1,1 +1,1 @@
-<%= sanitize(page.content) %>
+<%= sanitize(Commonmarker.to_html(page.content || "", options: { parse: { smart: true }})) %>

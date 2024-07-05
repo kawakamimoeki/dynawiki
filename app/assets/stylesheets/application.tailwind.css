@@ -69,9 +69,18 @@
   @apply bg-slate-50;
 }
 
-.prose code,
-.prose pre {
-  background-color: #f4f4f4;
+.prose code {
   padding: 2px !important;
   @apply rounded-none;
+}
+
+.prose pre {
+  padding: 1px !important;
+  @apply rounded-none;
+}
+
+.prose pre code {
+  display: block;
+  color: #333;
+  @apply bg-white;
 }
