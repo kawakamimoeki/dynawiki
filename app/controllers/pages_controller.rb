@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   include ActionView::RecordIdentifier
+  include ActionView::Helpers::SanitizeHelper
 
   def search
     redirect_to "/wiki/#{URI.encode_www_form_component(params[:q])}", allow_other_host: true
@@ -8,7 +9,9 @@ class PagesController < ApplicationController
   def show
     @page = Page.find_by(title: params[:title])
 
-    return if @page
+    if @page
+      return
+    end
 
     @page = Page.create(title: params[:title], content: "")
   end

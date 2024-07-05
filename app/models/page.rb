@@ -1,5 +1,6 @@
 class Page < ApplicationRecord
   include ActionView::RecordIdentifier
+  include ActionView::Helpers::SanitizeHelper
 
   after_update_commit -> { broadcast_updated }
 
@@ -10,5 +11,15 @@ class Page < ApplicationRecord
       locals: { page: self },
       target: "#{dom_id(self)}_content"
     )
+  end
+
+  def html
+    h = sanitize(
+      Commonmarker.to_html(
+        self.content || "", options: { parse: { smart: true }}
+      )
+    )
+
+    h.present? ? h : "No content. Please generate manually."
   end
 end

@@ -17,15 +17,8 @@
       <span>Jump</span>
     </a>
   </div>
-  <div class="flex gap-4 justify-center items-center pt-10">
-    <%= form_with(url: update_page_path(@page), id: "submit") do |form| %>
-      <%= form.hidden_field :reset, value: "1" %>
-      <%= form.button type: :submit, class: "rounded-full border px-5 py-2 inline-flex gap-2 hover:bg-slate-50" do %>
-        <img class="w-[18px] h-[18px] mt-[3px]" src="/reload.png" />
-        <span>Regenerate</span>
-      <% end %>
-    <% end %>
-
-    <%= link_to "Delete", destroy_page_path(@page), data: { turbo_method: "delete", turbo_confirm: "Are you sure you want to delete?" }, class: "rounded-full border px-5 py-2 inline-flex gap-2 hover:bg-slate-50" %>
-    </div>
+  <%= turbo_stream_from "footer-buttons" %>
+  <div id="footer-buttons-<%= @page.id %>">
+    <%= render partial: "pages/footer_buttons", locals: { page: @page, display: @page.html || false } %>
+  </div>
 </div>

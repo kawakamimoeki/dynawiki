@@ -1,3 +1,1 @@
-<% html = sanitize(Commonmarker.to_html(page.content || "", options: { parse: { smart: true }})) %>
-
-<%= html.present? ? html : "No content. Please generate manually." %>
+<%= page.html %>

@@ -77,3 +77,5 @@ gem "vite_rails", "~> 3.0"
 gem "commonmarker"
 
 gem "wikipedia-client", "~> 1.17"
+
+gem "google_search_results", "~> 2.2"
