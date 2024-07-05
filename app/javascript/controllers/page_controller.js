@@ -14,7 +14,6 @@ export default class extends Controller {
         el.innerHTML = el.innerHTML.replace(/^\n+/, "").replace(/\n+$/, "");
       });
     });
-    this.selection = null;
     fetch(`/wiki/${this.idValue}`, {
       headers: {
         Accept: "text/vnd.turbo-stream.html",
@@ -37,37 +36,28 @@ export default class extends Controller {
     this.element
       .querySelector(".prose")
       .addEventListener("touchend", this.select.bind(this));
+    this.element
+      .querySelector(".prose")
+      .addEventListener("touchmove", this.hideMenu.bind(this));
+  }
+
+  hideMenu() {
+    const buttons = document.querySelector("#actionButtons");
+    buttons.style.visibility = "hidden";
   }
 
   select(e) {
     const buttons = document.querySelector("#actionButtons");
     const selection = window.getSelection();
 
-    this.unwrap();
-
     if (selection.toString().length === 0) {
-      buttons.style.display = "none";
-      this.selection = null;
+      buttons.style.visibility = "hidden";
       return;
     }
 
-    this.selection = selection;
-
-    buttons.style.display = "flex";
+    buttons.style.visibility = "visible";
     buttons.style.left = e.pageX + "px";
     buttons.style.top = e.pageY + "px";
-
-    const range = selection.getRangeAt(0);
-    const docFragment = range.extractContents();
-
-    const span = document.createElement("span");
-    span.id = "target";
-    span.appendChild(docFragment);
-    range.insertNode(span);
-    selection.removeAllRanges();
-    let newRange = document.createRange();
-    newRange.selectNode(span);
-    selection.addRange(newRange);
 
     const jumpButton = document.querySelector("#jumpButton");
     jumpButton.href = `/wiki/${encodeURIComponent(selection.toString())}`;
@@ -76,13 +66,5 @@ export default class extends Controller {
     digButton.href = `/wiki/${encodeURIComponent(
       `${this.titleValue} ${selection.toString()}`,
     )}`;
-  }
-
-  unwrap() {
-    console.log("unwrap");
-    const spans = document.querySelectorAll("#target");
-    spans.forEach((span) => {
-      span.outerHTML = span.innerHTML;
-    });
   }
 }
