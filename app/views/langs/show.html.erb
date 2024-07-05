@@ -1,0 +1,25 @@
+<div class="max-w-[800px] ">
+  <div class="mb-10">
+<h1 class="text-3xl mb-2 font-bold">Dynawiki</h1>
+<p class="">Dynamic Wiki Experimentation with LLM</p>
+</div>
+<img src="/demo.gif" class="border rounded mb-4" />
+<div class="mb-5">
+<p>DynawikiはLLMによって動的にページが生成されるWikiです。ユーザーが選択したテキストのページをLLMが自動的に作成します。</p>
+
+<p>用途としては主に新しい分野の勉強に良いかと思っていますが、まだ使い方の可能性は未知数です。</p>
+
+<p>またDynawikiではどんな部分でもページとして切り出すことが出来ます。単語でなくても文章でもありです。</p>
+
+<p>現在は、誰でも利用可能なのでぜひいろいろ試してみてください。</p>
+
+<p>まずはヘッダーの窓になにか気になるワードを入力してみてください。</p>
+</div>
+
+<div class="prose">
+<ul>
+<% Page.distinct.where.not(content: "").order(updated_at: :desc).limit(100).each do |page| %>
+  <li><a href="/<%= page.language.name %>/wiki/<%= page.title %>"><%= page.title %></a></li>
+<% end %>
+</ul>
+</div>

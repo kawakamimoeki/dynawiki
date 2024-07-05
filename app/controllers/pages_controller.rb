@@ -1,6 +1,10 @@
 class PagesController < ApplicationController
   include ActionView::RecordIdentifier
 
+  def index
+    redirect_to "/ja"
+  end
+
   def search
     lang = params[:lang]
     title = URI.encode_www_form_component(params[:q]).gsub(/\+/, URI.decode_www_form_component("+"))
