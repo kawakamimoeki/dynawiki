@@ -18,7 +18,7 @@ class PagesController < ApplicationController
       return
     end
 
-    @page = Page.joins(:language).create(title: params[:title], content: "", languages: { name: params[:lang] })
+    @page = Page.joins(:language).create(title: params[:title], content: "", language_id: Language.find_by(name: params[:lang]).id)
   end
 
   def destroy
