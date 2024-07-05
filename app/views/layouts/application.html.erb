@@ -32,7 +32,7 @@
       <div class="font-bold">
         <a href="/">Dynawiki</a>
       </div>
-      <form method="POST" action="/search" data-controller="search" data-search-list-value="<%= Page.select(:title).map { { title: _1.title } }.to_json %>">
+      <form method="POST" action="/ja/search" data-controller="search" data-search-list-value="<%= Page.select(:title).map { { title: _1.title } }.to_json %>">
           <input name="q" id="autoComplete">
         </div>
       </form>
