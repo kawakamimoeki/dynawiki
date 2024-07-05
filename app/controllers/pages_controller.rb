@@ -3,7 +3,8 @@ class PagesController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
   def search
-    redirect_to "/wiki/#{URI.encode_www_form_component(params[:q])}", allow_other_host: true
+    title = URI.encode_www_form_component(params[:q]).gsub(/\+/, URI.decode_www_form_component("+"))
+    redirect_to "/wiki/#{title}", allow_other_host: true
   end
 
   def show
