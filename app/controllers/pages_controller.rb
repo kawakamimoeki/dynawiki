@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
   include ActionView::RecordIdentifier
-  include ActionView::Helpers::SanitizeHelper
 
   def search
     title = URI.encode_www_form_component(params[:q]).gsub(/\+/, URI.decode_www_form_component("+"))
