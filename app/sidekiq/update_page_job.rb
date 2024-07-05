@@ -6,7 +6,7 @@ class UpdatePageJob
     page.update!(content: "") if params["mode"] == "update"
     call_openai(page: page)
     if !@pedia.is_a?(Hash) && @pedia&.text
-      page.update(content: page.content + "<p style=\"width: 100%; text-align: right;\">Powered by <a href=\"https://ja.wikipedia.org/wiki/#{@query}\">Wikipedia</a></p>")
+      page.update(content: page.content + "\n\nPowered by \[Wikipedia\]\(https://ja.wikipedia.org/wiki/#{@query}\)")
     end
   end
 
