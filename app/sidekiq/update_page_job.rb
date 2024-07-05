@@ -17,21 +17,7 @@ class UpdatePageJob
     @query = nil
     config = Wikipedia::Configuration.new(domain: 'ja.wikipedia.org')
     client = Wikipedia::Client.new(config)
-    page.title.split("\s").each do |word|
-      @pedia = client.request( {
-        action: 'query',
-        list: 'prefixsearch',
-        pssearch: word,
-        prop: 'pageprops',
-      })
-      @pedia = JSON.parse(@pedia)
-      next unless @pedia["query"]["prefixsearch"].present?
-      @query = @pedia["query"]["prefixsearch"][0]["title"]
-      if @query
-        @pedia = client.find(@query)
-        break if @pedia.text
-      end
-    end
+    @pedia = client.find(page.title)
 
     content = <<~MARKDOWN
       あなたはページを動的に生成するLLMです。「#{page.title}」について書いてください。より専門的であればあるほど、より具体的な事例が含まれていればいるほど、記事としての価値が高まります。章立てで文章を構成してください。重要な単語やセンテンスは太字にしてください。
