@@ -41,7 +41,7 @@ class UpdatePageJob
         言語: 日本語
         長さ: 4000文字
       知識:
-        #{@pedia&.text ? @pedia.text.split(/==.+==/).map { _1[..400] }.join[..4000] : ""}
+        #{!@pedia.is_a?(Hash) && @pedia&.text ? @pedia.text.split(/==.+==/).map { _1[..400] }.join[..4000] : ""}
       <h3>出力</h3>
         #{page.title}
         #{page.content}
