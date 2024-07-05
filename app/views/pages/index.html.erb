@@ -18,8 +18,8 @@
 
 <div class="prose">
 <ul>
-<% Page.distinct.where.not(content: "").order(updated_at: :desc).each do |page| %>
-  <li><a href="/wiki/<%= page.title %>"><%= page.title %></a></li>
+<% Page.distinct.where.not(content: "").order(updated_at: :desc).limit(100).each do |page| %>
+  <li><a href="/<%= page.language.name %>/wiki/<%= page.title %>"><%= page.title %> (<%= page.language.name  %>)</a></li>
 <% end %>
 </ul>
 </div>

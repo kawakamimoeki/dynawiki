@@ -2,29 +2,30 @@ class PagesController < ApplicationController
   include ActionView::RecordIdentifier
 
   def search
+    lang = params[:lang]
     title = URI.encode_www_form_component(params[:q]).gsub(/\+/, URI.decode_www_form_component("+"))
-    redirect_to "/wiki/#{title}", allow_other_host: true
+    redirect_to "/#{lang}/wiki/#{title}", allow_other_host: true
   end
 
   def show
-    @page = Page.find_by(title: params[:title])
+    @page = Page.joins(:language).find_by(title: params[:title], languages: { name: params[:lang] })
 
     if @page
       return
     end
 
-    @page = Page.create(title: params[:title], content: "")
+    @page = Page.joins(:language).create(title: params[:title], content: "", languages: { name: params[:lang] })
   end
 
   def destroy
-    @page = Page.find_by(id: params[:id])
+    @page = Page.joins(:language).find_by(id: params[:id], languages: { name: params[:lang] })
     @page.destroy
 
     redirect_to "/"
   end
 
   def update
-    @page = Page.find_by(id: params[:id])
+    @page = Page.joins(:language).find_by(id: params[:id], languages: { name: params[:lang] })
 
     if !params[:reset].present? && @page.content.present?
       render "pages/nothing"

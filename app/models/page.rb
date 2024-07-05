@@ -2,6 +2,8 @@ class Page < ApplicationRecord
   include ActionView::RecordIdentifier
   include ActionView::Helpers::SanitizeHelper
 
+  belongs_to :language
+
   after_update_commit -> { broadcast_updated }
 
   def broadcast_updated

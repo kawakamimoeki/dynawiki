@@ -5,6 +5,7 @@ export default class extends Controller {
   static values = {
     id: String,
     title: String,
+    lang: String,
   };
 
   connect() {
@@ -14,7 +15,7 @@ export default class extends Controller {
         el.innerHTML = el.innerHTML.replace(/^\n+/, "").replace(/\n+$/, "");
       });
     });
-    fetch(`/wiki/${this.idValue}`, {
+    fetch(`/${this.langValue}/wiki/${this.idValue}`, {
       headers: {
         Accept: "text/vnd.turbo-stream.html",
         "X-CSRF-Token": document
@@ -60,11 +61,13 @@ export default class extends Controller {
     buttons.style.top = e.pageY + "px";
 
     const jumpButton = document.querySelector("#jumpButton");
-    jumpButton.href = `/wiki/${encodeURIComponent(selection.toString())}`;
+    jumpButton.href = `/ ${this.langValue} / wiki / ${encodeURIComponent(
+      selection.toString(),
+    )}`;
 
     const digButton = document.querySelector("#digButton");
-    digButton.href = `/wiki/${encodeURIComponent(
+    digButton.href = `/ ${this.langValue} /wiki/${encodeURIComponent(
       `${this.titleValue} ${selection.toString()}`,
-    )}`;
+    )} `;
   }
 }
