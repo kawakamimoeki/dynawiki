@@ -14,12 +14,10 @@ class Page < ApplicationRecord
   end
 
   def html
-    h = sanitize(
+    sanitize(
       Commonmarker.to_html(
         self.content || "", options: { parse: { smart: true }}
       )
-    )
-
-    h.present? ? h : "No content. Please generate manually."
+    ) || ""
   end
 end
