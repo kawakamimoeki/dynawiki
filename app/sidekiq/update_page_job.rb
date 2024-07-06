@@ -20,7 +20,7 @@ class UpdatePageJob
     )
     call_openai(page: page)
     if @ref[:link].present?
-      page.update(content: page.content + "\n\n[Reference page](#{@ref[:link]})")
+      page.update(content: page.content + "\n\n[Reference page](#{@ref[:link]})", ref_link: @ref[:link])
     end
     page.broadcast_update_to(
       "footer-buttons",
