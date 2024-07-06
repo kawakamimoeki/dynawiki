@@ -3,8 +3,15 @@
   <head>
     <title><%= @page ? "#{@page.title} - Dynawiki" : "Dynawiki" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel=”icon” href=“/favicon.ico”>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta property="og:url" content="<%= request.url %>" />
+    <meta property="og:type" content="Website" />
+    <meta property="og:title" content="<%= @page ? "#{@page.title} - Dynawiki" : "Dynawiki" %>" />
+    <meta property="og:description" content="Enjoy infinite pages Wiki!" />
+    <meta property="og:site_name" content="Dynawiki" />
+    <meta property="og:image" content="https://dynawiki.org/ogp.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
@@ -28,7 +35,7 @@
     <header class="py-3 px-5 flex justify-between items-center">
       <div class="flex items-center gap-1 w-full">
         <a href="/">
-          <img src="/i.png" width="24" height="24" />
+          <img src="/dynawiki.png" width="32" height="32" />
         </a>
         <% if request.path_info.exclude?("wiki") %>
           <div class="font-bold">
