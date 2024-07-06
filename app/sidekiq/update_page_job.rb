@@ -110,7 +110,7 @@ class UpdatePageJob
         Conditions:
           Format: MARKDOWN
           Language: English
-          Length: 4000 words
+          Length: 3000 words
         Reference Information:
           #{@ref ? @ref[:content][..4000] : "None"}
         Output:
