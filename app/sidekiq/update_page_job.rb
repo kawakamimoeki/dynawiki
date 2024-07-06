@@ -34,12 +34,16 @@ class UpdatePageJob
     search = GoogleSearch.new(params)
     results = search.get_hash
     first_result_url = results[:organic_results][0][:link]
-    html = URI.open(first_result_url).read
-    if html
-      @ref = {
-        content: html,
-        link:first_result_url
-      }
+    begin
+      html = URI.open(first_result_url).read
+      if html
+        @ref = {
+          content: html,
+          link:first_result_url
+        }
+      end
+    rescue => e
+      p e
     end
 
     content = <<~MARKDOWN
@@ -50,7 +54,7 @@ class UpdatePageJob
         言語: 日本語
         長さ: 4000文字
       参考情報:
-        #{@ref[:content][..4000]}
+        #{@ref ? @ref[:content][..4000] : "なし"}
       出力:
         #{page.title}
         #{page.content}
