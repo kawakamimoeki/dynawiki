@@ -14,7 +14,7 @@ class UpdatePageJob
     )
     page.broadcast_update_to(
       "footer-buttons",
-      partial: "pages/footer_buttons",
+      partial: "pages/footer",
       locals: { page: page, hidden: true },
       target: "footer-buttons-#{page.id}"
     )
@@ -24,7 +24,7 @@ class UpdatePageJob
     end
     page.broadcast_update_to(
       "footer-buttons",
-      partial: "pages/footer_buttons",
+      partial: "pages/footer",
       locals: { page: page , hidden: false },
       target: "footer-buttons-#{page.id}"
     )

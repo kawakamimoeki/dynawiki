@@ -12,6 +12,7 @@ class PagesController < ApplicationController
   end
 
   def show
+    @ref = Page.find_by(title: params[:ref])
     @page = Page.joins(:language).find_by(title: params[:title], languages: { name: params[:lang] })
     @pages_json = Page.select(:title).map { { title: _1.title } }.to_json
 
@@ -20,6 +21,7 @@ class PagesController < ApplicationController
     end
 
     @page = Page.joins(:language).create(title: params[:title], content: "", language_id: Language.find_by(name: params[:lang]).id)
+    @page.sources << @ref if @ref
   end
 
   def destroy

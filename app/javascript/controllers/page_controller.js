@@ -63,11 +63,11 @@ export default class extends Controller {
     const jumpButton = document.querySelector("#jumpButton");
     jumpButton.href = `/${this.langValue}/wiki/${encodeURIComponent(
       selection.toString(),
-    )}`;
+    )}?ref=${this.titleValue}`;
 
     const digButton = document.querySelector("#digButton");
     digButton.href = `/${this.langValue}/wiki/${encodeURIComponent(
       `${this.titleValue} ${selection.toString()}`,
-    )} `;
+    )}?ref=${this.titleValue}`;
   }
 }
