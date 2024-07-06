@@ -23,14 +23,3 @@
     <li>Dig or jump to the selected word</li>
   </ol>
 </div>
-
-<div class="py-[40px] text-sm text-center flex justify-center  gap-2 flex-wrap mx-auto max-w-[400px]">
-  <% @recent_pages.each do |page| %>
-    <a
-      class="truncate py-1 shadow px-3 hover:bg-slate-50 rounded block max-w-[400px]"
-      href="/<%= page.language.name %>/wiki/<%= page.title %>"
-    >
-      <%= page.title %>
-    </a>
-  <% end %>
-</div>
