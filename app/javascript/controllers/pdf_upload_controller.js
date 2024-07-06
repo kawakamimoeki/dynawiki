@@ -7,5 +7,6 @@ export default class extends Controller {
   enable() {
     this.buttonTarget.disable = false;
     this.buttonTarget.classList.remove("opacity-40");
+    this.buttonTarget.classList.add("hover:opacity-80");
   }
 }
