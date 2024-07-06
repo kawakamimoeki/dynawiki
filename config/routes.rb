@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   root "pages#index"
+  get "/ja/legal", to: "legal#ja"
   get "/:lang", to: "langs#show"
   get "/:lang/wiki/:title", to: "pages#show"
   post "/:lang/search", to: "pages#search", as: :search_page
