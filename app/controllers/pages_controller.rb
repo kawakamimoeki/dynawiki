@@ -37,7 +37,16 @@ class PagesController < ApplicationController
       return
     end
 
-    UpdatePageJob.perform_async({ id: params[:id], mode: :update }.to_json)
+    text = ""
+
+    if params[:pdf].present?
+      reader = PDF::Reader.new(params[:pdf].path)
+      reader.pages.each do |page|
+        text << page.text
+      end
+    end
+
+    UpdatePageJob.perform_async({ id: params[:id], ref: { content: text } }.to_json)
 
     respond_to do |format|
       format.turbo_stream

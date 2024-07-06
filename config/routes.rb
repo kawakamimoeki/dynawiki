@@ -14,5 +14,4 @@ Rails.application.routes.draw do
   get "/:lang/wiki/:title", to: "pages#show"
   post "/:lang/search", to: "pages#search", as: :search_page
   post "/:lang/wiki/:id", to: "pages#update", as: :update_page
-  delete "/:lang/wiki/:id", to: "pages#destroy", as: :destroy_page
 end

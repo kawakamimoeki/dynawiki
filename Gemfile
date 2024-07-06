@@ -81,3 +81,5 @@ gem "wikipedia-client", "~> 1.17"
 gem "google_search_results", "~> 2.2"
 
 gem "nokogiri", "~> 1.16"
+
+gem "pdf-reader", "~> 2.12"

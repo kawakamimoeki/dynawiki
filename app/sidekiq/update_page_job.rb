@@ -3,7 +3,8 @@ class UpdatePageJob
   def perform(params)
     params = JSON.parse(params)
     page = Page.find_by(id: params["id"].to_i)
-    page.update!(content: "") if params["mode"] == "update"
+    page.update!(content: "")
+    @ref = { content: params["ref"]["content"] }
     page.broadcast_update_to(
       "footer-buttons",
       partial: "pages/footer_buttons",
@@ -11,7 +12,7 @@ class UpdatePageJob
       target: "footer-buttons-#{page.id}"
     )
     call_openai(page: page)
-    if @ref
+    if @ref[:link].present?
       page.update(content: page.content + "\n\n[Reference page](#{@ref[:link]})")
     end
     page.broadcast_update_to(
@@ -25,30 +26,30 @@ class UpdatePageJob
   private
 
   def call_openai(page:)
-    params = {
-      engine: "google",
-      q: page.title,
-      hl: "ja",
-      api_key: ENV["SERP_API_ACCESS_TOKEN"]
-    }
-    search = GoogleSearch.new(params)
-    results = search.get_hash
-    first_result_url = results[:organic_results][0][:link]
-    begin
-      html = URI.open(first_result_url).read
-      if html
-        doc = Nokogiri::HTML(html)
-        html = doc.text_content
-        @ref = {
-          content: html,
-          link:first_result_url
-        }
+    unless @ref[:content].present?
+      params = {
+        engine: "google",
+        q: page.title,
+        hl: "ja",
+        api_key: ENV["SERP_API_ACCESS_TOKEN"]
+      }
+      search = GoogleSearch.new(params)
+      results = search.get_hash
+      first_result_url = results[:organic_results][0][:link]
+      begin
+        html = URI.open(first_result_url).read
+        if html
+          doc = Nokogiri::HTML(html)
+          html = doc.text
+          @ref = {
+            content: html,
+            link:first_result_url
+          }
+        end
+      rescue => e
+        p e
       end
-    rescue => e
-      p e
     end
-
-    p @ref
 
     content = <<~MARKDOWN
       あなたはページを動的に生成するLLMです。「#{page.title}」について書いてください。より専門的であればあるほど、より具体的な事例が含まれていればいるほど、記事としての価値が高まります。章立てで文章を構成してください。重要な単語やセンテンスは太字にしてください。
