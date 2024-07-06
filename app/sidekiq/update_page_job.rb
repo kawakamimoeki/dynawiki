@@ -37,6 +37,8 @@ class UpdatePageJob
     begin
       html = URI.open(first_result_url).read
       if html
+        doc = Nokogiri::HTML(html)
+        html = doc.text_content
         @ref = {
           content: html,
           link:first_result_url
@@ -45,6 +47,8 @@ class UpdatePageJob
     rescue => e
       p e
     end
+
+    p @ref
 
     content = <<~MARKDOWN
       あなたはページを動的に生成するLLMです。「#{page.title}」について書いてください。より専門的であればあるほど、より具体的な事例が含まれていればいるほど、記事としての価値が高まります。章立てで文章を構成してください。重要な単語やセンテンスは太字にしてください。
