@@ -1,25 +1,36 @@
-<div class="max-w-[800px] ">
+<div class="max-w-[800px] mx-auto">
   <div class="mb-10">
-<h1 class="text-3xl mb-2 font-bold">Dynawiki</h1>
-<p class="">Dynamic Wiki Experimentation with LLM</p>
+<h1 class="text-3xl mb-2 text-center font-bold">Enjoy infinite pages Wiki!</h1>
+<form
+  method="POST"
+  action="/<%= params[:lang] %>/search"
+  data-controller="search"
+  data-search-list-value="<%= @pages_json %>"
+  data-search-name-value="main-search"
+  class="flex justify-center text-lg py-[40px]"
+>
+  <div class="relative">
+    <input type="hidden" name="lang" value="ja">
+    <%= render partial: "icons/stars" %>
+    <input name="q" id="main-search">
+  </div>
+</form>
+<div class="flex justify-center">
+  <ol class="list-inside list-decimal font-bold">
+    <li>Enter the word(s) you are interested in</li>
+    <li>Read page</li>
+    <li>Select the words you are interested in</li>
+    <li>Dig or jump to the selected word</li>
+  </ol>
 </div>
-<img src="/demo.gif" class="border rounded mb-4" />
-<div class="mb-5">
-<p>DynawikiはLLMによって動的にページが生成されるWikiです。ユーザーが選択したテキストのページをLLMが自動的に作成します。</p>
 
-<p>用途としては主に新しい分野の勉強に良いかと思っていますが、まだ使い方の可能性は未知数です。</p>
-
-<p>またDynawikiではどんな部分でもページとして切り出すことが出来ます。単語でなくても文章でもありです。</p>
-
-<p>現在は、誰でも利用可能なのでぜひいろいろ試してみてください。</p>
-
-<p>まずはヘッダーの窓になにか気になるワードを入力してみてください。</p>
-</div>
-
-<div class="prose">
-<ul>
-<% Page.distinct.where.not(content: "").order(updated_at: :desc).limit(100).each do |page| %>
-  <li><a href="/<%= page.language.name %>/wiki/<%= page.title %>"><%= page.title %></a></li>
-<% end %>
-</ul>
+<div class="py-[40px] text-sm text-center flex justify-center  gap-2 flex-wrap mx-auto max-w-[400px]">
+  <% @recent_pages.each do |page| %>
+    <a
+      class="truncate py-1 shadow px-3 hover:bg-slate-50 rounded block max-w-[400px]"
+      href="/<%= page.language.name %>/wiki/<%= page.title %>"
+    >
+      <%= page.title %>
+    </a>
+  <% end %>
 </div>

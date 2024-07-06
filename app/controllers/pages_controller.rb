@@ -13,6 +13,7 @@ class PagesController < ApplicationController
 
   def show
     @page = Page.joins(:language).find_by(title: params[:title], languages: { name: params[:lang] })
+    @pages_json = Page.select(:title).map { { title: _1.title } }.to_json
 
     if @page
       return

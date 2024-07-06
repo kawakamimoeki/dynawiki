@@ -4,11 +4,12 @@ import autoComplete from "@tarekraafat/autocomplete.js";
 export default class extends Controller {
   static values = {
     list: Array,
+    name: String,
   };
 
   connect() {
-    this.autoCompleteJS = new autoComplete({
-      placeHolder: "Search or Create",
+    const config = {
+      placeHolder: "What do you want to know?",
       data: {
         src: this.listValue.map((i) => i.title),
       },
@@ -17,10 +18,15 @@ export default class extends Controller {
       },
       searchEngine: "loose",
       submit: true,
+    };
+    this.autoCompleteJS = new autoComplete({
+      name: this.nameValue,
+      selector: `#${this.nameValue}`,
+      ...config,
     });
 
     document
-      .querySelector("#autoComplete")
+      .querySelector(`#${this.nameValue}`)
       .addEventListener("selection", function (event) {
         event.target.value = event.detail.selection.value;
       });

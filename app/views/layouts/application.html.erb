@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -21,25 +24,33 @@
     -->
   </head>
 
-  <body class=' font-["Helvetica Neue",
-    Arial,
-    "Hiragino Kaku Gothic ProN",
-    "Hiragino Sans",
-    Meiryo,
-    sans-serif;] bg-white'>
-    <header class="py-3 px-5 flex justify-between border-b items-center fixed w-full bg-white">
-      <div class="flex items-center gap-2">
-      <div class="font-bold">
-        <a href="/">Dynawiki</a>
-      </div>
-      <form method="POST" action="/<%= params[:lang] %>/search" data-controller="search" data-search-list-value="<%= Page.select(:title).map { { title: _1.title } }.to_json %>">
-          <input type="hidden" name="lang" value="ja">
-          <input name="q" id="autoComplete">
+  <body class='bg-white'>
+    <header class="py-3 px-5 flex justify-between items-center">
+      <div class="flex items-center gap-2 w-full">
+        <img src="/dynawiki.png" width="32" height="32" />
+        <div class="font-bold">
+          <a href="/">Dynawiki</a>
         </div>
-      </form>
+        <% if request.path_info.include?("wiki") %>
+          <div class="grow"></div>
+          <form
+            method="POST"
+            action="/<%= params[:lang] %>/search"
+            data-controller="search"
+            data-search-list-value="<%= @pages_json %>"
+            data-search-name-value="main-search"
+            class="flex justify-center"
+          >
+            <div class="relative">
+              <input type="hidden" name="lang" value="ja">
+              <%= render partial: "icons/stars" %>
+              <input name="q" id="main-search">
+            </div>
+          </form>
+        <% end %>
       </div>
     </header>
-    <main class="px-5 pt-[100px] pb-5">
+    <main class="p-5">
       <%= yield %>
     </main>
   </body>

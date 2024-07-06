@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+
 .prose a {
   color: blue;
 }
@@ -29,44 +36,47 @@
   font-size: 1.2rem;
 }
 
-.autoComplete_wrapper {
+.main-search_wrapper {
   position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-.autoComplete_wrapper * {
+.main-search_wrapper * {
   transition: none;
+  width: 300px;
 }
 
-.autoComplete_wrapper > input {
+.main-search_wrapper > input {
   color: #333;
-  border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 1px;
   height: auto;
   padding: 2px;
   background-image: none;
   transition: none;
   color: #333;
+  @apply ml-[32px];
 }
 
-.autoComplete_wrapper > input:focus {
+.main-search_wrapper > input:focus {
   color: #333;
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  outline: none;
 }
 
-.autoComplete_wrapper > input::placeholder {
+.main-search_wrapper > input::placeholder {
   color: rgba(0, 0, 0, 0.3) !important;
+  @apply italic;
 }
 
-#autoComplete_list_1 {
-  @apply border-[0.5px] absolute top-[36px] bg-white;
+.main-search_wrapper #autoComplete_list_1 {
+  @apply border-[0.5px] border-black absolute top-[36px] bg-white ml-[32px] w-[300px] shadow-lg;
 }
 
 #autoComplete_list_1 li {
-  @apply border-[0.5px];
+  @apply border-[0.5px] border-black text-[16px] py-1 px-3 w-[300px];
 }
 
 #autoComplete_list_1 li[aria-selected] {
-  @apply bg-slate-50;
+  @apply bg-slate-50 border-[0.5px] border-black border-r;
 }
 
 .prose code {
