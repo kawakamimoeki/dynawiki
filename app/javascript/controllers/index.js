@@ -6,5 +6,7 @@ import { application } from "./application";
 
 import PageController from "./page_controller";
 import SearchController from "./search_controller";
+import PdfUploadController from "./pdf_upload_controller";
 application.register("page", PageController);
 application.register("search", SearchController);
+application.register("pdf-upload", PdfUploadController);
