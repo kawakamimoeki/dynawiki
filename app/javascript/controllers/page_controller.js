@@ -57,8 +57,8 @@ export default class extends Controller {
     }
 
     buttons.style.visibility = "visible";
-    buttons.style.left = e.pageX + "px";
-    buttons.style.top = e.pageY + "px";
+    buttons.style.left = e.pageX + 10 + "px";
+    buttons.style.top = e.pageY + 10 + "px";
 
     const jumpButton = document.querySelector("#jumpButton");
     jumpButton.href = `/${this.langValue}/wiki/${encodeURIComponent(

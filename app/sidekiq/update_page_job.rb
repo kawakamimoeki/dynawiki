@@ -1,14 +1,21 @@
 class UpdatePageJob
   include Sidekiq::Job
+  include ActionView::RecordIdentifier
+
   def perform(params)
     params = JSON.parse(params)
     page = Page.find_by(id: params["id"].to_i)
     page.update!(content: "")
     @ref = { content: params["ref"]["content"] }
     page.broadcast_update_to(
+      "#{dom_id(page)}",
+      partial: "pages/loading",
+      target: "#{dom_id(page)}_content"
+    )
+    page.broadcast_update_to(
       "footer-buttons",
       partial: "pages/footer_buttons",
-      locals: { page: page, display: false },
+      locals: { page: page, hidden: true },
       target: "footer-buttons-#{page.id}"
     )
     call_openai(page: page)
@@ -18,7 +25,7 @@ class UpdatePageJob
     page.broadcast_update_to(
       "footer-buttons",
       partial: "pages/footer_buttons",
-      locals: { page: page },
+      locals: { page: page , hidden: false },
       target: "footer-buttons-#{page.id}"
     )
   end
@@ -88,12 +95,6 @@ class UpdatePageJob
       new_content = chunk.dig("choices", 0, "delta", "content")
       if new_content
         page.update(content: (page.content || "") + new_content)
-        page.broadcast_update_to(
-          "now",
-          partial: "pages/now",
-          locals: { page: page },
-          target: "now"
-        )
       end
     end
   end

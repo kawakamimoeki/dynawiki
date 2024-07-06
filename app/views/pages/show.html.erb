@@ -4,7 +4,11 @@
   <h1 class="font-bold text-3xl mb-3"><%= @page.title %></h1>
   <div data-controller="page" data-page-lang-value="<%= @page.language.name %>" data-page-id-value="<%= @page.id %>" data-page-title-value="<%= @page.title %>">
     <div id="<%= dom_id(@page) %>_content" class="prose">
-      <%= render partial: "pages/content", locals: { page: @page } %>
+      <% if @page.html %>
+        <%= render partial: "pages/content", locals: { page: @page } %>
+      <% else %>
+        <%= render partial: "pages/loading" %>
+      <% end %>
     </div>
   </div>
   <div id="actionButtons" class="shadow-lg bg-white border rounded-lg absolute flex" style="visibility: hidden;">
@@ -19,6 +23,6 @@
   </div>
   <%= turbo_stream_from "footer-buttons" %>
   <div id="footer-buttons-<%= @page.id %>">
-    <%= render partial: "pages/footer_buttons", locals: { page: @page, display: @page.html || false } %>
+    <%= render partial: "pages/footer_buttons", locals: { page: @page, hidden: !@page.html.present? } %>
   </div>
 </div>

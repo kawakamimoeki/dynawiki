@@ -65,6 +65,7 @@
     <main class="p-5">
       <%= yield %>
     </main>
+    <% if request.path_info.exclude?("wiki") %>
     <footer class="p-4">
       <div class="flex justify-center gap-4">
         <div><a href="/ja/legal">Legal</a></div>
@@ -72,5 +73,6 @@
         &copy; 2024 Moeki Kawakami
       </div>
     </footer>
+    <% end %>
   </body>
 </html>
