@@ -1,6 +1,6 @@
 <div class="max-w-[800px] mx-auto">
   <div class="mb-10">
-<h1 class="text-3xl mb-2 text-center font-bold">Enjoy infinite pages Wiki!</h1>
+<h1 class="text-3xl mb-2 text-center font-bold">Explore, Learn, and Discover<br> with AI-Generated Wiki Pages!</h1>
 <form
   method="POST"
   action="/<%= params[:lang] %>/search"
@@ -10,7 +10,7 @@
   class="flex justify-center text-lg py-[40px]"
 >
   <div class="relative">
-    <input type="hidden" name="lang" value="ja">
+    <input type="hidden" name="lang" value="<%= params[:lang] %>">
     <%= render partial: "icons/stars" %>
     <input name="q" id="main-search">
   </div>

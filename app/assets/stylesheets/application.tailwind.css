@@ -98,7 +98,7 @@ header .main-search_wrapper #autoComplete_list_1 li {
 
 .prose pre {
   padding: 1px !important;
-  @apply rounded-none;
+  @apply rounded-none bg-white border border-[#333];
 }
 
 .prose pre code {

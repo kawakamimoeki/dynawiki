@@ -1,0 +1,66 @@
+<div class="max-w-[800px] mx-auto">
+<div class="prose">
+<%= sanitize(
+  Commonmarker.to_html(
+    <<~MARKDOWN
+    ### Privacy Policy
+
+    #### 1. Introduction
+    Dynawiki ("the Service") respects users' privacy and strives to protect personal information. This Privacy Policy explains our policies regarding the collection, use, and protection of information on the Service.
+
+    #### 2. Collection of Personal Information
+    The Service does not require user registration and does not collect personally identifiable information ("Personal Information"). Users can use the Service anonymously.
+
+    #### 3. File Uploads
+    Users can utilize the file upload feature, but uploaded files are interpreted by the LLM and deleted immediately afterward.
+
+    #### 4. Use of Cookies
+    The Service uses cookies to enhance the user experience. Cookies are small data files stored in the user's browser, used to optimize the Service's functionality. Users can manage cookie usage through their browser settings.
+
+    #### 5. Data Sharing
+    The Service does not share users' Personal Information with third parties, except as required by law or to protect the Service's rights.
+
+    #### 6. Security
+    The Service takes appropriate technical and organizational measures to ensure the security of user information. However, complete security of information transmitted over the internet cannot be guaranteed.
+
+    #### 7. Changes
+    This Privacy Policy may be amended as necessary. Changes will be notified on the Service. Users are encouraged to review this Policy regularly.
+
+    #### 8. Contact
+    For inquiries regarding this Privacy Policy, please contact the Service's support team.
+
+    ---
+
+    ### Terms of Use
+
+    #### 1. Introduction
+    These Terms of Use ("Terms") set forth the conditions for using Dynawiki ("the Service"), operated by [Moeki Kawakami](https://moeki.org). Users agree to these Terms when using the Service.
+
+    #### 2. Provision of Services
+    The Service provides infinitely generated Wiki pages. Users can freely browse and utilize the content.
+
+    #### 3. User Responsibilities
+    Users shall not engage in the following activities while using the Service:
+    - Violating laws or public order and morals
+    - Infringing on others' rights
+    - Unauthorized access, virus distribution, or other malicious activities
+
+    #### 4. File Uploads
+    Users can utilize the file upload feature, but uploaded files are temporarily stored and deleted at the end of the session. Uploading inappropriate files is prohibited.
+
+    #### 5. Intellectual Property Rights
+    The intellectual property rights of the content posted on the Service belong to the Service or legitimate right holders. Users may not reproduce, republish, or modify content without permission.
+
+    #### 6. Disclaimer
+    The Service does not guarantee the accuracy or completeness of the provided information. The Service is not liable for any damages arising from the use of the Service.
+
+    #### 7. Changes to Terms
+    These Terms may be amended as necessary. Changes will be notified on the Service. Continued use of the Service after changes implies acceptance of the revised Terms.
+
+    #### 8. Contact
+    For inquiries regarding these Terms, please contact [hi@moeki.org](mailto:hi@moeki.org).
+    MARKDOWN
+  )
+) %>
+</div>
+</div>

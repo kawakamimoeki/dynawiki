@@ -7,11 +7,14 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  #
+  get "/", to: "pages#index"
 
-  root "pages#index"
-  get "/ja/legal", to: "legal#ja"
-  get "/:lang", to: "langs#show"
-  get "/:lang/wiki/:title", to: "pages#show"
-  post "/:lang/search", to: "pages#search", as: :search_page
-  post "/:lang/wiki/:id", to: "pages#update", as: :update_page
+  scope "(:lang)", lang: /ja|en/ do
+    root "langs#show"
+    get "legal", to: "legal#index"
+    get "wiki/:title", to: "pages#show"
+    post "search", to: "pages#search", as: :search_page
+    post "wiki/:id", to: "pages#update", as: :update_page
+  end
 end

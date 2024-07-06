@@ -1,8 +1,17 @@
-class PagesController < ApplicationController
+  class PagesController < ApplicationController
   include ActionView::RecordIdentifier
 
   def index
-    redirect_to "/ja"
+    preferred_language = request.env['HTTP_ACCEPT_LANGUAGE']&.scan(/^[a-z]{2}/)&.first
+
+    case preferred_language
+    when 'ja'
+      redirect_to "/ja"
+    when 'en'
+      redirect_to "/en"
+    else
+      redirect_to "/en"
+    end
   end
 
   def search
@@ -12,9 +21,10 @@ class PagesController < ApplicationController
   end
 
   def show
+    @lang = Language.find_by(name: params[:lang])
     @ref = Page.find_by(title: params[:ref])
     @page = Page.joins(:language).find_by(title: params[:title], languages: { name: params[:lang] })
-    @pages_json = Page.select(:title).map { { title: _1.title } }.to_json
+    @pages_json = @lang.pages.select(:title).map { { title: _1.title } }.to_json
 
     if @page
       return
@@ -48,7 +58,7 @@ class PagesController < ApplicationController
       end
     end
 
-    UpdatePageJob.perform_async({ id: params[:id], ref: { content: text } }.to_json)
+    UpdatePageJob.perform_async({ id: params[:id], ref: { content: text }, lang: params[:lang] }.to_json)
 
     respond_to do |format|
       format.turbo_stream
