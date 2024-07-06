@@ -105,7 +105,7 @@ class UpdatePageJob
       MARKDOWN
     when "en"
       <<~MARKDOWN
-        You are an LLM that dynamically generates pages. Write about "#{@page.title}". The more specialized and the more specific examples included, the more valuable the article. Structure the text in chapters. Emphasize important words or sentences in **bold**.
+        Write wiki page about "#{@page.title}". The more specialized and the more specific examples included, the more valuable the article. Structure the text in chapters. Emphasize important words or sentences in **bold**.
 
         Conditions:
           Format: MARKDOWN
