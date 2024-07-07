@@ -29,11 +29,15 @@ body {
 }
 
 .prose h1 {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
 }
 
 .prose h2 {
   font-size: 1.2rem;
+}
+
+.prose h3 {
+  font-size: 1.1rem;
 }
 
 .main-search_wrapper {
