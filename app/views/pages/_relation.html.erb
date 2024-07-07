@@ -1,0 +1,8 @@
+<a
+  data-turbo="false"
+  class="p-3 shadow hover:bg-slate-50 rounded overflow-hidden h-[120px]"
+  href="/<%= params[:lang] %>/wiki/<%= page.title %>"
+>
+  <div class="text-lg font-bold mb-2"><%= page.title %></div>
+  <div class="opacity-50 text-sm line-clamp-3"><%= strip_tags(page.html)[..200] %></div>
+</a>
