@@ -9,6 +9,10 @@ body {
   font-style: normal;
 }
 
+.main-visual {
+  background-image: url("main.jpg");
+}
+
 .prose a {
   color: blue;
 }
