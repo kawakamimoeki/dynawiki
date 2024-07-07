@@ -94,7 +94,7 @@ class UpdatePageJob
             下限: 3000字
             上限: 4000字
         参考情報:
-          #{@ref ? @ref[:content][..4000] : "なし"}
+          #{@ref ? @ref[:content][..10000] : "なし"}
         出力:
           #{@page.title}
           #{@page.content}
@@ -111,7 +111,7 @@ class UpdatePageJob
             Min: 3000Words
             Max: 4000Words
         Reference Information:
-          #{@ref ? @ref[:content][..4000] : "None"}
+          #{@ref ? @ref[:content][..10000] : "None"}
         Output:
           #{@page.title}
           #{@page.content}
