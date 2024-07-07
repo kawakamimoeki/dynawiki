@@ -6,7 +6,7 @@ class UpdatePageJob
     params = JSON.parse(params)
     @page = Page.find_by(id: params["id"].to_i)
     @page.update!(content: "")
-    @ref = { content: params["ref"]["content"] }
+    @ref = { link: params["ref"]["link"] }
     @lang = params["lang"]
     @page.broadcast_update_to(
       "#{dom_id(@page)}",
@@ -34,7 +34,7 @@ class UpdatePageJob
   private
 
   def call_openai
-    unless @ref[:content].present?
+    unless @ref[:link].present?
       params = {
         engine: "google",
         q: @page.title,
@@ -43,20 +43,15 @@ class UpdatePageJob
       }
       search = GoogleSearch.new(params)
       results = search.get_hash
-      first_result_url = results[:organic_results][0][:link]
-      begin
-        html = URI.open(first_result_url).read
-        if html
-          doc = Nokogiri::HTML(html)
-          html = doc.text
-          @ref = {
-            content: html,
-            link:first_result_url
-          }
-        end
-      rescue => e
-        p e
-      end
+      @ref[:link] = results[:organic_results][0][:link]
+    end
+
+    begin
+      html = URI.open(@ref[:link]).read
+      doc = Nokogiri::HTML(html)
+      @ref[:content] = doc.text
+    rescue => e
+      p e
     end
 
     OpenAI::Client.new(
