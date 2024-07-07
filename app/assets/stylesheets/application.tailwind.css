@@ -55,7 +55,7 @@ header .main-search_wrapper * {
 
 .main-search_wrapper * {
   transition: none;
-  width: 370px;
+  width: 300px;
 }
 
 .main-search_wrapper > input {
@@ -84,7 +84,7 @@ header .main-search_wrapper #autoComplete_list_1 {
 }
 
 .main-search_wrapper #autoComplete_list_1 {
-  @apply absolute top-[36px] bg-white ml-[32px] w-[370px] shadow-lg;
+  @apply absolute top-[36px] bg-white ml-[32px] w-[300px] shadow-lg;
 }
 
 header .main-search_wrapper #autoComplete_list_1 li {
@@ -92,7 +92,7 @@ header .main-search_wrapper #autoComplete_list_1 li {
 }
 
 #autoComplete_list_1 li {
-  @apply border-b text-[16px] py-1 px-3 w-[370px] truncate;
+  @apply border-b text-[16px] py-1 px-3 w-[300px] truncate;
 }
 
 #autoComplete_list_1 li[aria-selected] {
