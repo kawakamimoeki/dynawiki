@@ -1,5 +1,5 @@
 {
-  "script": {
+  "scripts": {
     "postdeploy": "bin/reviewapp.sh"
   },
   "addons": ["heroku-redis:mini", "heroku-postgresql:essential"],
