@@ -3,7 +3,7 @@
 <h2 class="text-3xl mb-2 text-center font-bold"><%= I18n.t("views.top.main").html_safe %></h2>
 <div class="text-center mt-10">
   <div class="flex justify-center space-x-2 mb-4">
-    <% @pages_hash.reject { _1[:title].match(/[0-9]+/) }.length.to_s.rjust(6, '0').each_char do |digit| %>
+    <% @pages_hash.length.to_s.rjust(6, '0').each_char do |digit| %>
       <div class="bg-gray-800 text-white text-4xl sm:text-5xl md:text-6xl font-bold p-2 rounded">
           <%= digit %>
       </div>
