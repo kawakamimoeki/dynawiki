@@ -33,10 +33,10 @@
   </head>
 
   <body class='bg-white'>
-    <header class="py-3 px-5 flex justify-between items-center min-h-[54px]">
+    <header class="py-1 px-5 flex justify-between items-center min-h-[54px]">
       <div class="flex items-center gap-2 w-full">
         <a href="/<%= params[:lang] %>">
-          <img src="/icon.png" width="24" height="24" />
+          <img src="/icon.png" width="16" height="16" />
         </a>
         <% if request.path_info.include?("wiki") %>
           <div class="grow"></div>
