@@ -33,24 +33,12 @@
 <div class="py-[40px] grid gap-4 grid-cols-2">
   <% page.sources.each do |source| %>
     <% if source.id != page.id %>
-      <a
-        class="p-3 shadow hover:bg-slate-50 rounded h-[120px] overflow-hidden"
-        href="/<%= page.language.name %>/wiki/<%= source.title %>"
-      >
-        <div class="text-lg font-bold mb-2"><%= source.title %></div>
-        <div class="opacity-50 text-sm"><%= strip_tags(source.html)[..200] %></div>
-      </a>
+      <%= render partial: "pages/relation", locals: { page: source } %>
     <% end %>
   <% end %>
   <% page.destinations.each do |destination| %>
     <% if destination.id != page.id %>
-      <a
-        class="shadow p-3 hover:bg-slate-50 rounded h-[120px] overflow-hidden"
-        href="/<%= page.language.name %>/wiki/<%= destination.title %>"
-      >
-        <div class="text-lg font-bold mb-2"><%= destination.title %></div>
-        <div class="opacity-50 text-sm"><%= strip_tags(destination.html)[..200] %></div>
-      </a>
+      <%= render partial: "pages/relation", locals: { page: destination } %>
     <% end %>
   <% end %>
 </div>
