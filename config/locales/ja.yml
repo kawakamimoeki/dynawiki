@@ -1,0 +1,11 @@
+ja:
+  views:
+    search:
+      placeholder: 何が知りたい？
+    top:
+      main: AI生成のWikiページで<br>探求、学び、発見しよう
+      howtouse:
+        one: 興味のある単語を入力する
+        two: ページを読む
+        three: 興味のある単語を選択する
+        four: 選択した単語についてさらに掘り下げるか、ジャンプする

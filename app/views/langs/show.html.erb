@@ -1,12 +1,13 @@
 <div class="max-w-[800px] mx-auto">
   <div class="mb-10">
-<h1 class="text-3xl mb-2 text-center font-bold">Explore, Learn, and Discover<br> with AI-Generated Wiki Pages!</h1>
+<h2 class="text-3xl mb-2 text-center font-bold"><%= I18n.t("views.top.main").html_safe %></h2>
 <form
   method="POST"
   action="/<%= params[:lang] %>/search"
   data-controller="search"
   data-search-list-value="<%= @pages_json %>"
   data-search-name-value="main-search"
+  data-search-placeholder-value="<%= I18n.t("views.search.placeholder") %>"
   class="flex justify-center text-lg py-[40px]"
 >
   <div class="relative">
@@ -17,9 +18,9 @@
 </form>
 <div class="flex justify-center">
   <ol class="list-inside list-decimal font-bold">
-    <li>Enter the word(s) you are interested in</li>
-    <li>Read page</li>
-    <li>Select the words you are interested in</li>
-    <li>Dig or jump to the selected word</li>
+    <li><%= I18n.t("views.top.howtouse.one") %></li>
+    <li><%= I18n.t("views.top.howtouse.two") %></li>
+    <li><%= I18n.t("views.top.howtouse.three") %></li>
+    <li><%= I18n.t("views.top.howtouse.four") %></li>
   </ol>
 </div>

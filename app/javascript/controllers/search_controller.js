@@ -5,11 +5,12 @@ export default class extends Controller {
   static values = {
     list: Array,
     name: String,
+    placeholder: String,
   };
 
   connect() {
     const config = {
-      placeHolder: "What do you want to know?",
+      placeHolder: this.placeholderValue,
       data: {
         src: this.listValue.map((i) => i.title),
       },
