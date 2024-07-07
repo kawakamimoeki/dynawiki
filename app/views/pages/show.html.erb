@@ -4,11 +4,7 @@
   <h1 class="font-bold text-3xl mb-5"><%= @page.title %></h1>
   <div data-controller="page" data-page-lang-value="<%= @page.language.name %>" data-page-id-value="<%= @page.id %>" data-page-title-value="<%= @page.title %>">
     <div id="<%= dom_id(@page) %>_content" class="prose">
-      <% if @page.content.present? %>
-        <%= render partial: "pages/content", locals: { page: @page } %>
-      <% else %>
-        <%= render partial: "pages/loading" %>
-      <% end %>
+      <%= render partial: "pages/content", locals: { page: @page } %>
     </div>
     <div>
       <% if @page.rebuild %>
