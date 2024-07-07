@@ -95,7 +95,9 @@ class UpdatePageJob
         条件:
           フォーマット: MARKDOWN
           言語: 日本語
-          長さ: 4000文字
+          文字数:
+            下限: 3000字
+            上限: 4000字
         参考情報:
           #{@ref ? @ref[:content][..4000] : "なし"}
         出力:
@@ -110,7 +112,9 @@ class UpdatePageJob
         Conditions:
           Format: MARKDOWN
           Language: English
-          Length: 3000 words
+          Lengh:
+            Min: 3000Words
+            Max: 4000Words
         Reference Information:
           #{@ref ? @ref[:content][..4000] : "None"}
         Output:
