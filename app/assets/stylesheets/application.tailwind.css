@@ -92,7 +92,7 @@ header .main-search_wrapper #autoComplete_list_1 li {
 }
 
 #autoComplete_list_1 li {
-  @apply border-b text-[16px] py-1 px-3 w-[300px] truncate;
+  @apply border-b text-[16px] py-1 px-3 w-[370px] truncate;
 }
 
 #autoComplete_list_1 li[aria-selected] {
