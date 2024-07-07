@@ -49,6 +49,7 @@ class UpdatePageJob
     begin
       html = URI.open(@ref[:link]).read
       doc = Nokogiri::HTML(html)
+      doc.css('script').remove
       @ref[:content] = doc.text
     rescue => e
       p e
@@ -90,9 +91,6 @@ class UpdatePageJob
         条件:
           フォーマット: MARKDOWN
           言語: 日本語
-          文字数:
-            下限: 3000字
-            上限: 4000字
         参考情報:
           #{@ref ? @ref[:content][..10000] : "なし"}
         出力:
@@ -107,14 +105,8 @@ class UpdatePageJob
         Conditions:
           Format: MARKDOWN
           Language: English
-          Lengh:
-            Min: 3000Words
-            Max: 4000Words
         Reference Information:
           #{@ref ? @ref[:content][..10000] : "None"}
-        Output:
-          #{@page.title}
-          #{@page.content}
         Continue =>
       MARKDOWN
     end
