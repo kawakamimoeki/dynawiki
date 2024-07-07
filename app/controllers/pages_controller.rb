@@ -57,6 +57,8 @@
         text << page.text
       end
       @page.update(rebuild: true)
+    else
+      @page.update(rebuild: false)
     end
 
     UpdatePageJob.perform_async({ id: params[:id], ref: { content: text }, lang: params[:lang] }.to_json)
