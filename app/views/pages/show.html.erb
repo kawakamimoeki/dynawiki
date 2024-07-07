@@ -10,6 +10,13 @@
         <%= render partial: "pages/loading" %>
       <% end %>
     </div>
+    <div>
+      <% if @page.rebuild %>
+      <div class="text-right w-full mt-5 font-bold">
+        This page was rebuilt by a human👩‍💻
+      </div>
+      <% end %>
+    </div>
   </div>
   <div id="actionButtons" class="absolute flex gap-2 font-bold" style="visibility: hidden;">
     <a data-turbo="false" id="digButton" class="border shadow-lg rounded-full bg-white hover:bg-slate-50 p-3 hover:px-4 hover;py-2 transition-all group gap-2 flex items-center">
