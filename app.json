@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "postdeploy": "bin/reviewapp.sh"
+  },
+  "addons": ["heroku-redis:mini", "heroku-postgresql:essential"],
+  "env": {
+    "WEB_CONCURRENCY": {
+      "value": "1"
+    }
+  }
+}
