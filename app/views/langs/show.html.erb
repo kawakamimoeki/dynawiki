@@ -8,7 +8,7 @@
   data-search-list-value="<%= @pages_hash.to_json %>"
   data-search-name-value="main-search"
   data-search-placeholder-value="<%= I18n.t("views.search.placeholder") %>"
-  class="flex justify-center text-lg py-[40px]"
+  class="flex justify-center text-lg mt-10"
 >
   <div class="relative">
     <input type="hidden" name="lang" value="<%= params[:lang] %>">
@@ -16,14 +16,6 @@
     <input name="q" id="main-search">
   </div>
 </form>
-<div class="flex justify-center">
-  <ol class="list-inside list-decimal font-bold">
-    <li><%= I18n.t("views.top.howtouse.one") %></li>
-    <li><%= I18n.t("views.top.howtouse.two") %></li>
-    <li><%= I18n.t("views.top.howtouse.three") %></li>
-    <li><%= I18n.t("views.top.howtouse.four") %></li>
-  </ol>
-</div>
 
 <div class="flex justify-center mt-10">
 <iframe class="border rounded-lg border-[#333]" width="560" height="315" src="https://www.youtube.com/embed/3xoTppHgRGc?si=Yr0Pl_y0HA7-V-lE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
