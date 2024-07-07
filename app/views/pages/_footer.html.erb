@@ -7,7 +7,7 @@
   <%= form_with(url: update_page_path(lang: page.language.name, id: page.id), id: "submit") do |form| %>
     <%= form.hidden_field :reset, value: "1" %>
     <div class="flex border rounded-lg">
-      <%= form.text_field :url, class: "w-[300px] rounded-s-lg border-none focus:ring-0 focus:outline-none", placeholder: "Reference URL" %>
+      <%= form.text_field :url, class: "w-[270px] rounded-s-lg border-none focus:ring-0 focus:outline-none", placeholder: "Reference URL" %>
       <%= form.button type: :submit, class: "rounded-e-lg bg-[#117469] border-[0.5px] border-sltate-300 px-5 py-2 inline-flex gap-2 hover:opacity-80 text-white" do %>
         <span class="flex items-center gap-1">
           Correct
