@@ -55,25 +55,7 @@
       return
     end
 
-    text = ""
-
-    if params[:url].present?
-      @page.update(rebuild: true)
-    else
-      @page.update(rebuild: false)
-    end
-
-    if params[:pdf].present?
-      reader = PDF::Reader.new(params[:pdf].path)
-      reader.pages.each do |page|
-        text << page.text
-      end
-      @page.update(rebuild: true, ref_text: text.gsub(/\u0000/, ""))
-    else
-      @page.update(rebuild: false)
-    end
-
-    UpdatePageJob.perform_async({ id: params[:id], ref: { link: params[:url], content: text }, lang: params[:lang] }.to_json)
+    UpdatePageJob.perform_async({ id: params[:id], lang: params[:lang] }.to_json)
 
     respond_to do |format|
       format.turbo_stream

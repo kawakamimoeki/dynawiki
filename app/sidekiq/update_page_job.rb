@@ -6,7 +6,6 @@ class UpdatePageJob
     params = JSON.parse(params)
     @page = Page.find_by(id: params["id"].to_i)
     @page.update!(content: "")
-    @ref = { link: params["ref"]["link"], content: params["ref"]["content"] }
     @lang = params["lang"]
     @page.broadcast_update_to(
       "#{dom_id(@page)}",
@@ -20,9 +19,6 @@ class UpdatePageJob
       target: "footer-buttons-#{@page.id}"
     )
     call_openai
-    if @ref[:link].present?
-      @page.update(ref_link: @ref[:link])
-    end
     @page.broadcast_update_to(
       "footer-buttons",
       partial: "pages/footer",
@@ -34,17 +30,6 @@ class UpdatePageJob
   private
 
   def call_openai
-    if @ref[:link] && !@ref[:content].present?
-      begin
-        html = URI.open(@ref[:link]).read
-        doc = Nokogiri::HTML(html)
-        doc.css('script').remove
-        @ref[:content] = doc.text
-      rescue => e
-        p e
-      end
-    end
-
     OpenAI::Client.new(
       access_token: ENV["OPENAI_ACCESS_TOKEN"]
     ).chat(
@@ -81,12 +66,10 @@ class UpdatePageJob
         条件:
           フォーマット: MARKDOWN
           言語: 日本語
-        参考情報:
-          #{@ref ? @ref[:content][..10000] : "なし"}
+        文字数:
+          最小: 2000文字
+          最大: 2100文字
         出力:
-          #{@page.title}
-          #{@page.content}
-        続き =>
       MARKDOWN
     when "en"
       <<~MARKDOWN
@@ -95,9 +78,10 @@ class UpdatePageJob
         Conditions:
           Format: MARKDOWN
           Language: English
-        Reference Information:
-          #{@ref ? @ref[:content][..10000] : "None"}
-        Continue =>
+        Length:
+          Min: 2000words
+          Max: 2100words
+        Output:
       MARKDOWN
     end
   end
