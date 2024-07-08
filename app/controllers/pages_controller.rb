@@ -24,7 +24,7 @@
     @lang = Language.find_by(name: params[:lang])
     @ref = Page.find_by(title: params[:ref])
     @page = Page.joins(:language).find_by(title: params[:title], languages: { name: params[:lang] })
-    @page.sources << @ref if @ref && !@page.link_to_sources.find_by(source_id: @ref.id)
+    @page.sources << @ref if @ref && @page && !@page.link_to_sources.find_by(source_id: @ref.id)
 
     if @page
       return
