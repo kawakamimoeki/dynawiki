@@ -37,6 +37,11 @@
   def update
     @page = Page.joins(:language).find_by(id: params[:id], languages: { name: params[:lang] })
 
+    if !params[:reset].present? && @page.content.present?
+      render "pages/nothing"
+      return
+    end
+
     UpdatePageJob.perform_async({ id: params[:id], lang: params[:lang] }.to_json)
 
     respond_to do |format|
