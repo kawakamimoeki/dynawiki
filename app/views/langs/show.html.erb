@@ -10,6 +10,6 @@
 
 <div class="py-[40px] grid gap-4 grid-cols-2">
   <% @randoms.each do |title| %>
-    <%= render partial: "pages/relation", locals: { page: Page.new(title:, language_id: @lang.id) } %>
+    <%= render partial: "pages/relation", locals: { page: Page.find_or_initialize_by(title:, language_id: @lang.id) } %>
   <% end %>
 </div>
