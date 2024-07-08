@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     root "langs#show"
     get "legal", to: "legal#index"
     get "wiki/:title", to: "pages#show"
+    get "wiki/:title/ref", to: "pages#ref"
     post "search", to: "pages#search", as: :search_page
     post "wiki/:id", to: "pages#update", as: :update_page
   end

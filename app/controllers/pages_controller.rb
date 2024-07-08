@@ -34,6 +34,12 @@
     @page.sources << @ref if @ref
   end
 
+  def ref
+    @page = Page.find_by(title: params[:title])
+
+    render plain: @page.ref_text
+  end
+
   def destroy
     @page = Page.joins(:language).find_by(id: params[:id], languages: { name: params[:lang] })
     @page.destroy
@@ -62,7 +68,7 @@
       reader.pages.each do |page|
         text << page.text
       end
-      @page.update(rebuild: true)
+      @page.update(rebuild: true, ref_text: text.gsub(/\u0000/, ""))
     else
       @page.update(rebuild: false)
     end
