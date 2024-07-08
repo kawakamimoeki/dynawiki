@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.main-visual {
-  background-image: url("main.jpg");
-}
-
 .prose a {
   color: blue;
 }
