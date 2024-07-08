@@ -61,7 +61,7 @@
       @page.update(rebuild: false)
     end
 
-    UpdatePageJob.perform_async({ id: params[:id], ref: { content: text }, lang: params[:lang] }.to_json)
+    UpdatePageJob.perform_async({ id: params[:id], ref: { link: params[:url], content: text }, lang: params[:lang] }.to_json)
 
     respond_to do |format|
       format.turbo_stream
