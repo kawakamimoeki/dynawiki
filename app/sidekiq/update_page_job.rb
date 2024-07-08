@@ -6,7 +6,7 @@ class UpdatePageJob
     params = JSON.parse(params)
     @page = Page.find_by(id: params["id"].to_i)
     @page.update!(content: "")
-    @ref = { link: params["ref"]["link"], content: "" }
+    @ref = { link: params["ref"]["link"], content: params["ref"]["content"] }
     @lang = params["lang"]
     @page.broadcast_update_to(
       "#{dom_id(@page)}",
@@ -34,7 +34,7 @@ class UpdatePageJob
   private
 
   def call_openai
-    if @ref[:link]
+    if @ref[:link] && !@ref[:content].present?
       begin
         html = URI.open(@ref[:link]).read
         doc = Nokogiri::HTML(html)

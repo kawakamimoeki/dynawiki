@@ -48,8 +48,20 @@
       render "pages/nothing"
       return
     end
-    @page.update(rebuild: params[:url].present?)
-    UpdatePageJob.perform_async({ id: params[:id], ref: { link: params[:url] }, lang: params[:lang] }.to_json)
+
+    text = ""
+
+    if params[:pdf].present?
+      reader = PDF::Reader.new(params[:pdf].path)
+      reader.pages.each do |page|
+        text << page.text
+      end
+      @page.update(rebuild: true)
+    else
+      @page.update(rebuild: false)
+    end
+
+    UpdatePageJob.perform_async({ id: params[:id], ref: { content: text }, lang: params[:lang] }.to_json)
 
     respond_to do |format|
       format.turbo_stream
