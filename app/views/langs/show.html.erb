@@ -3,21 +3,9 @@
 <div class="main-visual h-24 bg-center text-white max-w-[400px] mx-auto bg-cover flex items-center justify-center rounded">
   <h2 class="text-3xl mb-2 text-center font-bold drop-shadow">Dynawiki</h2>
 </div>
-<form
-  method="POST"
-  action="/<%= params[:lang] %>/search"
-  data-controller="search"
-  data-search-list-value="<%= @pages_hash.to_json %>"
-  data-search-name-value="main-search"
-  data-search-placeholder-value="<%= I18n.t("views.search.placeholder") %>"
-  class="flex justify-center mt-10"
->
-  <div class="relative">
-    <input type="hidden" name="lang" value="<%= params[:lang] %>">
-    <%= render partial: "icons/stars" %>
-    <input name="q" id="main-search">
-  </div>
-</form>
+<div class="mt-10">
+  <%= render "pages/search" %>
+</div>
 
 <div class="max-w-[400px] mx-auto mt-10 flex justify-center">
   <iframe class="w-full h-[230px]" src="https://www.youtube.com/embed/3xoTppHgRGc?si=w8ZE5u-2DXaR9LLG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

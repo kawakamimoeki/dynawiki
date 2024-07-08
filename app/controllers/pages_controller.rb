@@ -25,7 +25,6 @@
     @ref = Page.find_by(title: params[:ref])
     @page = Page.joins(:language).find_by(title: params[:title], languages: { name: params[:lang] })
     @page.sources << @ref if @ref && !@page.link_to_sources.find_by(source_id: @ref.id)
-    @pages_json = @lang.pages.select(:title).map { { title: _1.title } }.to_json
 
     if @page
       return

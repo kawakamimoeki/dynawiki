@@ -44,61 +44,6 @@ body {
   font-size: 1.1rem;
 }
 
-.main-search_wrapper {
-  position: relative;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-}
-
-header .main-search_wrapper * {
-  width: 240px;
-}
-
-.main-search_wrapper * {
-  transition: none;
-  width: 300px;
-}
-
-.main-search_wrapper > input {
-  color: #333;
-  border-radius: 1px;
-  height: auto;
-  padding: 2px;
-  background-image: none;
-  transition: none;
-  color: #333;
-  @apply ml-[32px];
-}
-
-.main-search_wrapper > input:focus {
-  color: #333;
-  outline: none;
-}
-
-.main-search_wrapper > input::placeholder {
-  color: rgba(0, 0, 0, 0.3) !important;
-  @apply italic;
-}
-
-header .main-search_wrapper #autoComplete_list_1 {
-  @apply w-[240px];
-}
-
-.main-search_wrapper #autoComplete_list_1 {
-  @apply absolute top-[36px] bg-white ml-[32px] w-[300px] shadow-lg;
-}
-
-header .main-search_wrapper #autoComplete_list_1 li {
-  @apply w-[240px];
-}
-
-#autoComplete_list_1 li {
-  @apply border-b text-[16px] py-1 px-3 w-[300px] truncate;
-}
-
-#autoComplete_list_1 li[aria-selected] {
-  @apply bg-slate-50;
-}
-
 .prose code {
   padding: 2px !important;
   @apply rounded-none;

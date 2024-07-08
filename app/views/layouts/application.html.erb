@@ -40,21 +40,7 @@
         </a>
         <% if request.path_info.include?("wiki") %>
           <div class="grow"></div>
-          <form
-            method="POST"
-            action="/<%= params[:lang] %>/search"
-            data-controller="search"
-            data-search-list-value="<%= @pages_json %>"
-            data-search-name-value="main-search"
-            data-search-placeholder-value="<%= I18n.t("views.search.placeholder") %>"
-            class="flex justify-center"
-          >
-            <div class="relative">
-              <input type="hidden" name="lang" value="<%= params[:lang] %>">
-              <%= render partial: "icons/stars" %>
-              <input name="q" id="main-search">
-            </div>
-          </form>
+          <%= render "pages/search" %>
         <% end %>
       </div>
     </header>
