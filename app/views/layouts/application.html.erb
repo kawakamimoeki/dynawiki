@@ -12,7 +12,11 @@
     <meta property="og:description" content="Enjoy infinite pages Wiki!" />
     <meta property="og:site_name" content="Dynawiki" />
     <meta property="og:image" content="https://dynawiki.org/ogp.jpg" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="Dynawiki" />
+    <meta name="twitter:title" content="<%= @page ? "#{@page.title} - Dynawiki" : "Dynawiki" %>" />
+    <meta name="twitter:description" content="Enjoy infinite pages Wiki!" />
+    <meta name="twitter:image" content="https://dynawiki.org/ogp.jpg"" />
+    <meta name="twitter:card" content="summary" />
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
