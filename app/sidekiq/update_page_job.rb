@@ -63,34 +63,34 @@ class UpdatePageJob
       }
     )
 
-    @page.broadcast_update_to(
-      "footer-buttons",
-      partial: "pages/loading",
-      target: "footer-buttons-#{@page.id}"
-    )
+    # @page.broadcast_update_to(
+    #   "footer-buttons",
+    #   partial: "pages/loading",
+    #   target: "footer-buttons-#{@page.id}"
+    # )
 
-    res = openai.chat(
-      parameters: {
-        model: "gpt-3.5-turbo",
-        response_format: { type: "json_object" },
-        messages: [
-          {
-            role: "user",
-            content: prompt3
-          }
-        ],
-        temperature: 0.4,
-      }
-    )
+    # res = openai.chat(
+    #   parameters: {
+    #     model: "gpt-3.5-turbo",
+    #     response_format: { type: "json_object" },
+    #     messages: [
+    #       {
+    #         role: "user",
+    #         content: prompt3
+    #       }
+    #     ],
+    #     temperature: 0.4,
+    #   }
+    # )
 
-    @related = JSON.parse(res.dig("choices", 0, "message", "content"))["related"]
+    # @related = JSON.parse(res.dig("choices", 0, "message", "content"))["related"]
 
-    language_id = Language.find_by(name: @lang).id
-    @related.each do |title|
-      if title != @page.title
-        @page.destinations << Page.create(title:, language_id:)
-      end
-    end
+    # language_id = Language.find_by(name: @lang).id
+    # @related.each do |title|
+    #   if title != @page.title
+    #     @page.destinations << Page.create(title:, language_id:)
+    #   end
+    # end
   end
 
 
