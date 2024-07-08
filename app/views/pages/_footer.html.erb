@@ -2,6 +2,10 @@
 
 <div class="text-center text-sm opacity-40 mt-5">The page contents are not always correct. Please verify any important information.</div>
 
+<div class="text-center text-sky-600 mt-5">
+<%= link_to "Regenerate", "/#{page.language.name}/wiki/#{page.id}", data: { turbo_method: :post } %>
+</div>
+
 <div class="py-[40px] grid gap-4 grid-cols-2">
   <% page.sources.each do |source| %>
     <% if source.id != page.id %>

@@ -34,26 +34,8 @@
     @page.sources << @ref if @ref
   end
 
-  def ref
-    @page = Page.find_by(title: params[:title])
-
-    render plain: @page.ref_text
-  end
-
-  def destroy
-    @page = Page.joins(:language).find_by(id: params[:id], languages: { name: params[:lang] })
-    @page.destroy
-
-    redirect_to "/"
-  end
-
   def update
     @page = Page.joins(:language).find_by(id: params[:id], languages: { name: params[:lang] })
-
-    if !params[:reset].present? && @page.content.present?
-      render "pages/nothing"
-      return
-    end
 
     UpdatePageJob.perform_async({ id: params[:id], lang: params[:lang] }.to_json)
 
