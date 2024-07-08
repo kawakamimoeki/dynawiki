@@ -87,7 +87,9 @@ class UpdatePageJob
 
     language_id = Language.find_by(name: @lang).id
     @related.each do |title|
-      @page.destinations << Page.create(title:, language_id:)
+      if title != @page.title
+        @page.destinations << Page.create(title:, language_id:)
+      end
     end
   end
 
