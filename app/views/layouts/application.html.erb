@@ -34,16 +34,19 @@
   </head>
 
   <body class='bg-white font-sans'>
-    <header class="py-1 px-5 flex justify-between items-center min-h-[54px]">
-      <div class="flex items-center gap-2 w-full">
-        <a href="/<%= params[:lang] %>">Top</a>
+    <header class="py-2 px-5 flex justify-between items-center min-h-[54px]">
+      <div class="flex flex-col sm:flex-row  justify-between items-center gap-2 w-full">
+        <a href="/<%= params[:lang] %>" class="flex items-center gap-1 mb-[1px] sm:mb-0">
+          <img src="/icon.png" width="21" height="21" />
+
+          <span class="font-bold">Dynawiki</span>
+        </a>
         <% if request.path_info.include?("wiki") %>
-          <div class="grow"></div>
           <%= render "pages/search" %>
         <% end %>
       </div>
     </header>
-    <main class="p-5">
+    <main class="p-3">
       <%= yield %>
     </main>
     <% if request.path_info.exclude?("wiki") && request.path_info.exclude?("legal") %>
