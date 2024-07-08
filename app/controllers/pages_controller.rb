@@ -51,6 +51,12 @@
 
     text = ""
 
+    if params[:url].present?
+      @page.update(rebuild: true)
+    else
+      @page.update(rebuild: false)
+    end
+
     if params[:pdf].present?
       reader = PDF::Reader.new(params[:pdf].path)
       reader.pages.each do |page|
