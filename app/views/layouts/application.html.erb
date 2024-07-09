@@ -35,7 +35,7 @@
 
   <body class='bg-white font-sans'>
     <header class="py-2 px-5 flex justify-between items-center min-h-[54px]">
-      <div class="flex flex-col sm:flex-row  justify-between items-center gap-2 w-full">
+      <div class="flex justify-between items-center gap-2 w-full">
         <a href="/<%= params[:lang] %>" class="flex items-center gap-1 mb-[1px] sm:mb-0">
           <img src="/icon.png" width="21" height="21" />
 
@@ -47,7 +47,7 @@
       <%= yield %>
     </main>
     <% if request.path_info.exclude?("wiki") && request.path_info.exclude?("legal") %>
-    <footer class="p-4">
+    <footer class="p-4 fixed bottom-0 w-full">
       <div class="flex justify-center gap-1 flex-wrap">
         <div><a href="/en">English</a></div>
         <div>・</div>
