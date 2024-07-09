@@ -37,7 +37,7 @@ class UpdatePageJob
       items = result['items']
       ref_link = items.map { _1['link']}.filter {
         uri = URI.parse(_1)
-        uri.scheme == "https" && !uri.host.match?(/(youtube|instagram|x\.com|twitter)/)
+        uri.scheme == "https" && !uri.host.match?(/(youtube|podcast|instagram|x\.com|twitter)/)
       }[..5].join(",")
       @ref = ""
       ref_link.split(",").each do |link|
@@ -86,7 +86,7 @@ class UpdatePageJob
           title = doc.at('title').text
           uri = URI.parse(link)
           @page.references << Reference.create(title:, link:, baseurl: "#{uri.scheme}://#{uri.host}")
-          @ref += doc.css(css.include?(",") ? css.split(",")[0] : css).text.gsub(/[\t\n\s]/, "")[..5000]
+          @ref += doc.css(css.include?(",") ? css.split(",")[0] : css).text.gsub(/[\t\n\s]/, "")[..2000]
         rescue => e
           p e
         end
@@ -97,7 +97,7 @@ class UpdatePageJob
 
     openai.chat(
       parameters: {
-        model: "gpt-3.5-turbo-16k",
+        model: "gpt-3.5-turbo",
         messages: [
           {
             role: "user",
