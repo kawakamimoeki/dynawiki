@@ -46,7 +46,7 @@
         <% end %>
       </div>
     </header>
-    <main class="p-3">
+    <main class="py-3 px-5">
       <%= yield %>
     </main>
     <% if request.path_info.exclude?("wiki") && request.path_info.exclude?("legal") %>
