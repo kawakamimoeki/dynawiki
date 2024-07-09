@@ -86,7 +86,7 @@ class UpdatePageJob
           title = doc.at('title').text
           uri = URI.parse(link)
           @page.references << Reference.create(title:, link:, baseurl: "#{uri.scheme}://#{uri.host}")
-          @ref += doc.css(css.include?(",") ? css.split(",")[0] : css).text.gsub(/[\t\n\s]/, "")[..2000]
+          @ref += doc.css(css.include?(",") ? css.split(",")[0] : css).text.gsub(/[\t\n\s]/, "")[..5000]
         rescue => e
           p e
         end
@@ -97,7 +97,7 @@ class UpdatePageJob
 
     openai.chat(
       parameters: {
-        model: "gpt-3.5-turbo",
+        model: "gpt-3.5-turbo-16k",
         messages: [
           {
             role: "user",
