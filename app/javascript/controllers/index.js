@@ -3,6 +3,9 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application";
-
+import TextareaAutogrow from "stimulus-textarea-autogrow";
+import SearchController from "./search_controller";
 import PageController from "./page_controller";
 application.register("page", PageController);
+application.register("search", SearchController);
+application.register("textarea-autogrow", TextareaAutogrow);

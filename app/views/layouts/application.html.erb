@@ -41,9 +41,6 @@
 
           <span class="font-bold">Dynawiki</span>
         </a>
-        <% if request.path_info.include?("wiki") %>
-          <%= render partial: "pages/search", locals: { autofocus: false, value: params[:title] } %>
-        <% end %>
       </div>
     </header>
     <main class="py-3 px-5">
@@ -63,6 +60,12 @@
       <div class="text-sm opacity-60 text-center mt-3">
       &copy; 2024 Moeki Kawakami</div>
     </footer>
+    <% end %>
+
+    <% if request.path_info.include?("wiki") %>
+      <div class="fixed bottom-0 p-4 flex justify-center w-full">
+        <%= render partial: "pages/search", locals: { autofocus: false, value: params[:title] } %>
+      </div>
     <% end %>
   </body>
 </html>

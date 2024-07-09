@@ -16,7 +16,24 @@
 
   def search
     lang = params[:lang]
-    title = URI.encode_www_form_component(params[:q]).gsub(/\+/, URI.decode_www_form_component("+"))
+    query = URI.encode_www_form_component(params[:q]).gsub(/\+/, URI.decode_www_form_component("+"))
+
+    openai = OpenAI::Client.new(access_token: ENV["OPENAI_ACCESS_TOKEN"])
+    res = openai.chat(
+      parameters: {
+        model: "gpt-4o",
+        messages: [
+          {
+            role: "user",
+            content: search_prompt(query, lang.to_sym)
+          }
+        ],
+        temperature: 1,
+        response_format: { type: "json_object" },
+      }
+    )
+
+    title = JSON.parse(res.dig("choices", 0, "message", "content"))["title"]
     redirect_to "/#{lang}/wiki/#{title}", allow_other_host: true
   end
 
@@ -48,6 +65,33 @@
 
     respond_to do |format|
       format.turbo_stream
+    end
+  end
+
+  private
+
+  def search_prompt(query, lang)
+    case lang
+    when :ja
+      <<~MARKDOWN
+        「#{query}」をWikiのページタイトルになるように変換してください。
+        つまり名詞や体言止めにする必要があります。
+        また疑問文の場合はその答えとなるものをタイトルとしてください。
+
+        入力例: Appleはどんな製品を発売した？
+        出力例(JSON):
+          { title: "Appleの製品" }
+      MARKDOWN
+    when :en
+      <<~MARKDOWN
+        Convert "#{query}" into a Wiki page title.
+        That means it needs to be a noun or end with a noun.
+        Additionally, for questions, provide the answer as the title.
+
+        Example input: What products has Apple released?
+        Example output(JSON):
+          { title: "Apple's Products" }
+      MARKDOWN
     end
   end
 end

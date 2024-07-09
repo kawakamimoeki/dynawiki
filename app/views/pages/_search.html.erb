@@ -1,11 +1,21 @@
 <form
   method="POST"
   action="/<%= params[:lang] %>/search"
-  class="flex justify-center"
+  data-controller="search"
+  class="justify-center mx-auto shadow relative bg-gray-100 w-full max-w-[400px] border-[#444] flex gap-1 pe-2 ps-4 py-2 rounded-[24px] items-end"
 >
-  <div class="relative border w-[240px] border-[#444] flex gap-1 rounded items-center">
-    <input type="hidden" name="lang" value="<%= params[:lang] %>">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14"/></svg>
-    <input name="q" value="<%= value %>" class="rounded-e grow focus:outline-none focus:ring-0" placeholder="Search" <%= autofocus ? "autofocus" : "" %>>
-  </div>
+  <input type="hidden" name="lang" value="<%= params[:lang] %>">
+  <svg class="mb-[5px]" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14"/></svg>
+  <textarea
+    name="q"
+    data-controller="textarea-autogrow"
+    class="rounded-e placeholder:italic bg-gray-100 grow focus:border-none border-none resize-none focus:outline-none focus:ring-0 px-2 py-1"
+    placeholder="What do you want to know?"
+    data-action="keydown->search#submit"
+    rows="1"
+    <%= autofocus ? "autofocus" : "" %>
+  ><%= value %></textarea>
+  <button data-search-target="button" type="submit" class="text-[#117469]">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M11 11.8V15q0 .425.288.713T12 16t.713-.288T13 15v-3.2l.9.9q.275.275.7.275t.7-.275t.275-.7t-.275-.7l-2.6-2.6q-.3-.3-.7-.3t-.7.3l-2.6 2.6q-.275.275-.275.7t.275.7t.7.275t.7-.275zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>
+  </button>
 </form>
