@@ -37,6 +37,8 @@
   def update
     @page = Page.joins(:language).find_by(id: params[:id], languages: { name: params[:lang] })
 
+    return unless @page
+
     if !params[:reset].present? && @page.content.present?
       render "pages/nothing"
       return
