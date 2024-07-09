@@ -31,10 +31,12 @@ export default class extends Controller {
         document.body.insertAdjacentHTML("beforeend", doc.body.innerHTML);
       });
 
-    Array.from(this.element.querySelector(".prose").children).forEach((c) => {
-      c.classList.add("transition");
-      c.classList.add("hover:bg-slate-100");
-    });
+    this.wrapBlock();
+
+    window.addEventListener(
+      "turbo:before-stream-render",
+      this.wrapBlock.bind(this),
+    );
 
     this.element
       .querySelector(".prose")
@@ -74,5 +76,12 @@ export default class extends Controller {
     digButton.href = `/${this.langValue}/wiki/${encodeURIComponent(
       `${this.titleValue} ${selection.toString()}`,
     )}?ref=${this.titleValue}`;
+  }
+
+  wrapBlock() {
+    Array.from(this.element.querySelector(".prose").children).forEach((c) => {
+      c.classList.add("transition");
+      c.classList.add("hover:bg-slate-100");
+    });
   }
 }
