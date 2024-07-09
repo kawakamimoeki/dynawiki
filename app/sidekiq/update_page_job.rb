@@ -6,6 +6,7 @@ class UpdatePageJob
     params = JSON.parse(params)
     @page = Page.find_by(id: params["id"].to_i)
     @page.update!(content: "")
+    @page.references.destroy_all
     @page.destinations.destroy_all
     @lang = params["lang"]
     @page.broadcast_update_to(
@@ -36,14 +37,17 @@ class UpdatePageJob
     if response.is_a?(Net::HTTPSuccess)
       result = JSON.parse(response.body)
       items = result['items']
-      @page.ref_link = items.map { _1['link']}.filter { URI.parse(_1).scheme == "https" }[..5].join(",")
+      ref_link = items.map { _1['link']}.filter { URI.parse(_1).scheme == "https" }[..5].join(",")
       @ref = ""
-      @page.ref_link.split(",").each do |link|
+      ref_link.split(",").each do |link|
         begin
           html = URI.open(link)
           doc = Nokogiri::HTML(html)
+          title = doc.at('title').text
           doc.search('script').remove
           doc.search('style').remove
+          uri = URI.parse(link)
+          @page.references << Reference.create(title:, link:, baseurl: "#{uri.scheme}://#{uri.host}")
           @ref += doc.text.gsub(/[\t\n\s]/, "")[..2000]
         rescue => e
           p e
