@@ -31,6 +31,11 @@ export default class extends Controller {
         document.body.insertAdjacentHTML("beforeend", doc.body.innerHTML);
       });
 
+    Array.from(this.element.querySelector(".prose").children).forEach((c) => {
+      c.classList.add("transition");
+      c.classList.add("hover:bg-slate-100");
+    });
+
     this.element
       .querySelector(".prose")
       .addEventListener("mouseup", this.select.bind(this));
