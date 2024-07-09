@@ -118,6 +118,12 @@ class UpdatePageJob
       new_content = chunk.dig("choices", 0, "delta", "content")
       if new_content
         @page.update(content: (@page.content || "") + new_content)
+        @page.broadcast_update_to(
+          "#{dom_id(@page)}",
+          partial: "pages/content",
+          locals: { page: @page },
+          target: "#{dom_id(@page)}_content"
+        )
       end
     end
   end
