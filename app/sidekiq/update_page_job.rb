@@ -32,7 +32,10 @@ class UpdatePageJob
   private
 
   def call_openai
+    openai = OpenAI::Client.new(access_token: ENV["OPENAI_ACCESS_TOKEN"])
+
     uri = URI("https://www.googleapis.com/customsearch/v1?q=#{CGI.escape(@page.title)}&key=#{ENV["GOOGLE_SEARCH_KEY"]}&cx=141faed9620de450b")
+
     response = Net::HTTP.get_response(uri)
     if response.is_a?(Net::HTTPSuccess)
       result = JSON.parse(response.body)
@@ -43,12 +46,49 @@ class UpdatePageJob
         begin
           html = URI.open(link)
           doc = Nokogiri::HTML(html)
-          title = doc.at('title').text
           doc.search('script').remove
           doc.search('style').remove
+          doc.css('*').each do |element|
+            # 全ての属性を取得
+            attributes = element.attribute_nodes
+
+            # 属性を逆順に処理
+            attributes.reverse_each do |attr|
+              attr_name = attr.name
+
+              if attr_name != 'class'
+                # クラス属性以外の属性を削除
+                element.remove_attribute(attr_name)
+              else
+                # クラス属性がある場合、最初のクラスだけを保持
+                classes = element[:class].split(' ')
+                element[:class] = classes[0]
+              end
+            end
+          end
+          begin
+            res = openai.chat(
+              parameters: {
+                model: "gpt-3.5-turbo",
+                messages: [
+                  {
+                    role: "user",
+                    content: prompt1(doc.to_html.gsub(/[\t\n\s]/, "")[..4000])
+                  }
+                ],
+                temperature: 0.7,
+                response_format: { type: "json_object" },
+              }
+            )
+            css = JSON.parse(res.dig("choices", 0, "message", "content"))["css"]
+          rescue => e
+            p e
+          end
+          css ||= 'body'
+          title = doc.at('title').text
           uri = URI.parse(link)
           @page.references << Reference.create(title:, link:, baseurl: "#{uri.scheme}://#{uri.host}")
-          @ref += doc.text.gsub(/[\t\n\s]/, "")[..2000]
+          @ref += doc.css(css.include?(",") ? css.split(",")[0] : css).text.gsub(/[\t\n\s]/, "")[..2000]
         rescue => e
           p e
         end
@@ -56,8 +96,6 @@ class UpdatePageJob
     else
       p response
     end
-
-    openai = OpenAI::Client.new(access_token: ENV["OPENAI_ACCESS_TOKEN"])
 
     openai.chat(
       parameters: {
@@ -82,6 +120,27 @@ class UpdatePageJob
         @page.update(content: (@page.content || "") + new_content)
       end
     end
+  end
+
+  def prompt1(html)
+    <<~MARKDOWN
+      This is a web article.
+      Extract only the text.
+      Exclude the sidebar, footer and other parts.
+      Output the css selector of article content in JSON.
+
+      output example:
+      {
+      "css": "CSS Selector"
+      }
+
+      html:
+      \`\`\`html
+      #{html}
+      \`\`\`
+
+      output JSON:
+    MARKDOWN
   end
 
   def prompt2
@@ -114,29 +173,6 @@ class UpdatePageJob
           Max: 2100words
         Output:
       MARKDOWN
-    end
-  end
-
-  def prompt3
-    case @lang
-    when "ja"
-      <<~MARKDOWN
-        「#{@page.title}」に関連するページを10個考えてください。自由に発想していいです。
-
-        出力例(JSON):
-        {
-          related: ["ページA", "ページB", "..."]
-        }
-        MARKDOWN
-    when "en"
-      <<~MARKDOWN
-        Please think of 10 idea cards related to the following idea card "#{@page.title}". Feel free to brainstorm.
-
-        Output example (JSON):
-        {
-          related: ["Page A", "Page B", "..."]
-        }
-        MARKDOWN
     end
   end
 end
