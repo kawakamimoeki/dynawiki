@@ -10,11 +10,6 @@ class UpdatePageJob
     @page.destinations.destroy_all
     @lang = params["lang"]
     @page.broadcast_update_to(
-      "#{dom_id(@page)}",
-      partial: "pages/loading",
-      target: "#{dom_id(@page)}_content"
-    )
-    @page.broadcast_update_to(
       "footer-buttons",
       partial: "pages/footer",
       locals: { page: @page, hidden: true },
