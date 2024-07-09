@@ -61,6 +61,11 @@
       return
     end
 
+    @page.broadcast_update_to(
+      "#{dom_id(@page)}",
+      partial: "pages/loading",
+      target: "#{dom_id(@page)}_content"
+    )
     UpdatePageJob.perform_async({ id: params[:id], lang: params[:lang] }.to_json)
 
     respond_to do |format|

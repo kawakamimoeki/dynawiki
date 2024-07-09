@@ -37,7 +37,7 @@ class UpdatePageJob
       items = result['items']
       ref_link = items.map { _1['link']}.filter {
         uri = URI.parse(_1)
-        uri.scheme == "https" && !uri.host.match?(/(youtube|podcast|instagram|x\.com|twitter)/)
+        uri.scheme == "https" && !uri.host.match?(/(apps.apple.com|youtube|podcast|instagram|x\.com|twitter)/)
       }[..2].join(",")
       @ref = ""
       ref_link.split(",").each do |link|
