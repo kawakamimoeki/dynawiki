@@ -31,23 +31,29 @@ class UpdatePageJob
   private
 
   def call_openai
+    uri = URI("https://www.googleapis.com/customsearch/v1?q=#{CGI.escape(@page.title)}&key=#{ENV["GOOGLE_SEARCH_KEY"]}&cx=141faed9620de450b")
+    response = Net::HTTP.get_response(uri)
+    if response.is_a?(Net::HTTPSuccess)
+      result = JSON.parse(response.body)
+      items = result['items']
+      @page.ref_link = items.map { _1['link']}.filter { URI.parse(_1).scheme == "https" }[..5].join(",")
+      @ref = ""
+      @page.ref_link.split(",").each do |link|
+        begin
+          html = URI.open(link)
+          doc = Nokogiri::HTML(html)
+          doc.search('script').remove
+          doc.search('style').remove
+          @ref += doc.text.gsub(/[\t\n\s]/, "")[..2000]
+        rescue => e
+          p e
+        end
+      end
+    else
+      p response
+    end
+
     openai = OpenAI::Client.new(access_token: ENV["OPENAI_ACCESS_TOKEN"])
-
-    res = openai.chat(
-      parameters: {
-        model: "gpt-3.5-turbo",
-        response_format: { type: "json_object" },
-        messages: [
-          {
-            role: "user",
-            content: prompt1
-          }
-        ],
-        temperature: 0.4,
-      }
-    )
-
-    @related = JSON.parse(res.dig("choices", 0, "message", "content"))["related"]
 
     openai.chat(
       parameters: {
@@ -62,35 +68,6 @@ class UpdatePageJob
         stream: stream_proc,
       }
     )
-
-    # @page.broadcast_update_to(
-    #   "footer-buttons",
-    #   partial: "pages/loading",
-    #   target: "footer-buttons-#{@page.id}"
-    # )
-
-    # res = openai.chat(
-    #   parameters: {
-    #     model: "gpt-3.5-turbo",
-    #     response_format: { type: "json_object" },
-    #     messages: [
-    #       {
-    #         role: "user",
-    #         content: prompt3
-    #       }
-    #     ],
-    #     temperature: 0.4,
-    #   }
-    # )
-
-    # @related = JSON.parse(res.dig("choices", 0, "message", "content"))["related"]
-
-    # language_id = Language.find_by(name: @lang).id
-    # @related.each do |title|
-    #   if title != @page.title
-    #     @page.destinations << Page.create(title:, language_id:)
-    #   end
-    # end
   end
 
 
@@ -100,29 +77,6 @@ class UpdatePageJob
       if new_content
         @page.update(content: (@page.content || "") + new_content)
       end
-    end
-  end
-
-  def prompt1
-    case @lang
-    when "ja"
-      <<~MARKDOWN
-        次の「#{@page.title}」に関連するキーワードを20個考えてください。自由に発想していいです。
-
-        出力例(JSON):
-        {
-          related: ["キーワードA", "キーワードB"]
-        }
-      MARKDOWN
-    when "en"
-      <<~MARKDOWN
-        Please think of 20 keywords related to "#{@page.title}". Feel free to brainstorm.
-
-        Output example (JSON):
-        {
-          related: ["Keyword A", "Keyword B"]
-        }
-      MARKDOWN
     end
   end
 
@@ -138,8 +92,8 @@ class UpdatePageJob
       文字数:
         最小: 2000文字
         最大: 2100文字
-        キーワード:
-          #{@related.join(",")}
+        参考情報:
+          #{@ref}
         出力:
           #{@page.title}
         続き=>
