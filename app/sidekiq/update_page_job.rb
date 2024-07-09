@@ -34,7 +34,7 @@ class UpdatePageJob
   def call_openai
     openai = OpenAI::Client.new(access_token: ENV["OPENAI_ACCESS_TOKEN"])
 
-    uri = URI("https://www.googleapis.com/customsearch/v1?q=#{CGI.escape(@page.title)}&key=#{ENV["GOOGLE_SEARCH_KEY"]}&cx=141faed9620de450b")
+    uri = URI("https://www.googleapis.com/customsearch/v1?q=#{CGI.escape(@page.title)}&key=#{ENV["GOOGLE_SEARCH_KEY"]}&cx=#{ENV["GOOGLE_SEARCH_ENGINE"]}")
 
     response = Net::HTTP.get_response(uri)
     if response.is_a?(Net::HTTPSuccess)
