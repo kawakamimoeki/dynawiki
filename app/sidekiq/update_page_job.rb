@@ -38,7 +38,7 @@ class UpdatePageJob
       ref_link = items.map { _1['link']}.filter {
         uri = URI.parse(_1)
         uri.scheme == "https" && !uri.host.match?(/(apps.apple.com|youtube|podcast|instagram|x\.com|twitter)/)
-      }[..2].join(",")
+      }[..4].join(",")
       @ref = ""
       ref_link.split(",").each do |link|
         begin
@@ -71,7 +71,7 @@ class UpdatePageJob
                 messages: [
                   {
                     role: "user",
-                    content: prompt1(doc.to_html.gsub(/[\t\n\s]/, "")[..4000])
+                    content: prompt1(doc.to_html.gsub(/[\t\n\s]/, "")[..2000])
                   }
                 ],
                 temperature: 0.7,
@@ -86,7 +86,7 @@ class UpdatePageJob
           title = doc.at('title').text
           uri = URI.parse(link)
           @page.references << Reference.create(title:, link:, baseurl: "#{uri.scheme}://#{uri.host}")
-          @ref += doc.css(css.include?(",") ? css.split(",")[0] : css).text.gsub(/[\t\n\s]/, "")[..4000]
+          @ref += doc.css(css.include?(",") ? css.split(",")[0] : css).text.gsub(/[\t\n\s]/, "")[..2000]
         rescue => e
           p e
         end
@@ -157,8 +157,8 @@ class UpdatePageJob
         フォーマット: MARKDOWN
         言語: 日本語
       文字数:
-        最小: 2000文字
-        最大: 2100文字
+        最小: 4000文字
+        最大: 4100文字
         参考情報:
           #{@ref}
         出力:
