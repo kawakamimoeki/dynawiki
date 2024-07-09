@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_08_052727) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_09_003450) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,7 +43,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_052727) do
     t.index ["language_id"], name: "index_pages_on_language_id"
   end
 
+  create_table "references", force: :cascade do |t|
+    t.string "title"
+    t.string "link"
+    t.string "baseurl"
+    t.bigint "page_id", null: false
+    t.string "imageurl"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_references_on_page_id"
+  end
+
   add_foreign_key "links", "pages", column: "destination_id"
   add_foreign_key "links", "pages", column: "source_id"
   add_foreign_key "pages", "languages"
+  add_foreign_key "references", "pages"
 end
