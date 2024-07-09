@@ -16,24 +16,7 @@
 
   def search
     lang = params[:lang]
-    query = URI.encode_www_form_component(params[:q]).gsub(/\+/, URI.decode_www_form_component("+"))
-
-    openai = OpenAI::Client.new(access_token: ENV["OPENAI_ACCESS_TOKEN"])
-    res = openai.chat(
-      parameters: {
-        model: "gpt-4o",
-        messages: [
-          {
-            role: "user",
-            content: search_prompt(query, lang.to_sym)
-          }
-        ],
-        temperature: 1,
-        response_format: { type: "json_object" },
-      }
-    )
-
-    title = JSON.parse(res.dig("choices", 0, "message", "content"))["title"]
+    title = URI.encode_www_form_component(params[:q]).gsub(/\+/, URI.decode_www_form_component("+"))
     redirect_to "/#{lang}/wiki/#{title}", allow_other_host: true
   end
 
