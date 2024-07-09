@@ -40,7 +40,10 @@ class UpdatePageJob
     if response.is_a?(Net::HTTPSuccess)
       result = JSON.parse(response.body)
       items = result['items']
-      ref_link = items.map { _1['link']}.filter { URI.parse(_1).scheme == "https" }[..5].join(",")
+      ref_link = items.map { _1['link']}.filter {
+        uri = URI.parse(_1)
+        uri.scheme == "https" && !uri.host.match?(/(youtube|instagram|x\.com)/)
+      }[..5].join(",")
       @ref = ""
       ref_link.split(",").each do |link|
         begin
