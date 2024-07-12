@@ -2,17 +2,16 @@
   method="POST"
   action="/<%= params[:lang] %>/search"
   data-controller="search"
-  class="justify-center mx-auto border border-slate-300 [& > textarea:focus]:shadow relative w-full max-w-[400px] flex gap-1 pe-2 ps-4 py-1 rounded-[24px] items-end"
+  class="items-center text-[#333] border-[0.5px] border-[#333] justify-center bg-white relative w-[300px] flex gap-1 pe-2 ps-2 rounded items-end"
 >
   <input type="hidden" name="lang" value="<%= params[:lang] %>">
-  <svg class="mb-[5px]" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14"/></svg>
   <input
     type="search"
     name="q"
     value="<%= value %>"
-    data-controller="textarea-autogrow"
-    class="rounded-e placeholder:italic peer grow focus:border-none border-none resize-none focus:outline-none focus:ring-0 px-2 py-1"
-    placeholder="What do you want to know?"
+    class="rounded-e  text-sm py-1 placeholder:italic peer grow focus:border-none border-none resize-none focus:outline-none focus:ring-0 px-2"
+    placeholder="Search"
     data-action="keydown->search#submit"
     rows="1"
     <%= autofocus ? "autofocus" : "" %>

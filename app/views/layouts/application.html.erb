@@ -6,17 +6,6 @@
     <link rel=”icon” href=“/favicon.ico”>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <meta property="og:url" content="<%= request.url %>" />
-    <meta property="og:type" content="Website" />
-    <meta property="og:title" content="<%= @page ? "#{@page.title} - Dynawiki" : "Dynawiki" %>" />
-    <meta property="og:description" content="Enjoy infinite pages Wiki!" />
-    <meta property="og:site_name" content="Dynawiki" />
-    <meta property="og:image" content="https://dynawiki.org/ogp.jpg" />
-    <meta name="twitter:site" content="Dynawiki" />
-    <meta name="twitter:title" content="<%= @page ? "#{@page.title} - Dynawiki" : "Dynawiki" %>" />
-    <meta name="twitter:description" content="Enjoy infinite pages Wiki!" />
-    <meta name="twitter:image" content="https://dynawiki.org/ogp.jpg"" />
-    <meta name="twitter:card" content="summary" />
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -33,17 +22,16 @@
     -->
   </head>
 
-  <body class='bg-white font-sans'>
-    <header class="py-2 px-5 flex justify-between items-center min-h-[54px]">
+  <body class='font-sans'>
+    <header class="fixed top-0  w-full py-1 border-b px-2 flex justify-between items-center">
       <div class="flex justify-between items-center gap-2 w-full">
         <a href="/<%= params[:lang] %>" class="flex items-center gap-1 mb-[1px] sm:mb-0">
-          <img src="/icon.png" width="21" height="21" />
-
-          <span class="font-bold">Dynawiki</span>
+          <span>Dynawiki</span>
         </a>
       </div>
+      <%= render partial: "pages/search", locals: { autofocus: false, value: params[:title] } %>
     </header>
-    <main class="py-3 px-5">
+    <main class="py-3 px-5 mt-16">
       <%= yield %>
     </main>
     <% if request.path_info.exclude?("wiki") && request.path_info.exclude?("legal") %>
@@ -58,12 +46,6 @@
       <div class="text-sm opacity-60 text-center mt-3">
       &copy; 2024 Moeki Kawakami</div>
     </footer>
-    <% end %>
-
-    <% if request.path_info.include?("wiki") %>
-      <div class="fixed bottom-0 py-2 px-4 flex bg-white border-t justify-center w-full">
-        <%= render partial: "pages/search", locals: { autofocus: false, value: params[:title] } %>
-      </div>
     <% end %>
   </body>
 </html>
