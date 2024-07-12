@@ -1,7 +1,7 @@
 <%= turbo_stream_from "#{dom_id(@page)}" %>
 
 <div class="flex flex-col md:flex-row gap-2 w-full">
-  <div class="grow min-w-[500px] max-w-[800px]">
+  <div class="grow w-[70%]">
     <h1 class="font-bold text-3xl mb-5"><%= @page.title %></h1>
     <div data-controller="page" data-page-lang-value="<%= @page.language.name %>" data-page-id-value="<%= @page.id %>" data-page-title-value="<%= @page.title %>">
       <div id="<%= dom_id(@page) %>_content" class="prose">
@@ -21,7 +21,7 @@
       </a>
     </div>
   </div>
-  <div class="max-w-[500px] ">
+  <div class="w-[30%] ">
     <%= turbo_stream_from "footer-buttons" %>
     <div id="footer-buttons-<%= @page.id %>">
       <%= render partial: "pages/footer", locals: { page: @page, hidden: !@page.content.present? } %>
