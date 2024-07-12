@@ -26,7 +26,7 @@
     <header class="fixed bg-white top-0  w-full py-1 border-b px-2 flex justify-between items-center">
       <div class="flex justify-between items-center gap-2 w-full">
         <a href="/<%= params[:lang] %>" class="flex items-center gap-1 mb-[1px] sm:mb-0">
-          <span>Dynawiki</span>
+          <span class="font-bold">Dynawiki</span>
         </a>
       </div>
       <%= render partial: "pages/search", locals: { autofocus: false, value: params[:title] } %>
@@ -35,15 +35,15 @@
       <%= yield %>
     </main>
     <% if request.path_info.exclude?("wiki") && request.path_info.exclude?("legal") %>
-    <footer class="p-4 fixed bottom-0 w-full">
-      <div class="flex justify-center gap-1 flex-wrap">
+    <footer class="p-4 prose text-sm">
+      <div class="flex gap-1 flex-wrap">
         <div><a href="/en">English</a></div>
-        <div>・</div>
+        <div>/</div>
         <div><a href="/ja">Japanese</a></div>
-        <div>・</div>
+        <div>/</div>
         <div><a href="/<%= params[:lang] %>/legal">Legal</a></div>
       </div>
-      <div class="text-sm opacity-60 text-center mt-3">
+      <div class="text-xs opacity-60 mt-3">
       &copy; 2024 Moeki Kawakami</div>
     </footer>
     <% end %>
