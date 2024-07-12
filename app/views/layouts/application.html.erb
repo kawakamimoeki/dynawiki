@@ -61,7 +61,7 @@
     <% end %>
 
     <% if request.path_info.include?("wiki") %>
-      <div class="fixed bottom-0 p-4 flex justify-center w-full">
+      <div class="fixed bottom-0 py-2 px-4 flex bg-white border-t justify-center w-full">
         <%= render partial: "pages/search", locals: { autofocus: false, value: params[:title] } %>
       </div>
     <% end %>
