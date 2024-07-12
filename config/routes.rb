@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   scope "(:lang)", lang: /ja|en/ do
     root "langs#show"
     get "legal", to: "legal#index"
+    get "wiki/:title.md", to: "pages#markdown"
     get "wiki/:title", to: "pages#show"
     post "search", to: "pages#search", as: :search_page
     post "wiki/:id", to: "pages#update", as: :update_page

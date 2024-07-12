@@ -34,6 +34,17 @@
     @page.sources << @ref if @ref
   end
 
+  def markdown
+      @lang = Language.find_by(name: params[:lang])
+      @page = Page.joins(:language).find_by(title: params[:title], languages: { name: params[:lang] })
+
+      if @page
+        render plain: @page.content
+      else
+        render plain: "File not found", status: :not_found
+      end
+    end
+
   def update
     @page = Page.joins(:language).find_by(id: params[:id], languages: { name: params[:lang] })
 

@@ -14,11 +14,13 @@
 
 <div class="text-center text-sm opacity-40 mt-5">The page contents are not always correct. Please verify any important information.</div>
 
-<div class="text-center text-sky-600 mt-5">
+<div class="flex justify-center gap-3 mt-5 items-center">
   <%= form_with url: "/#{page.language.name}/wiki/#{page.id}" do |form| %>
     <%= form.hidden_field :reset, value: 1 %>
-    <%= form.submit "Regenerate", class: "cursor-pointer" %>
+    <%= form.submit "Regenerate", class: "cursor-pointer p-2 border rounded hover:bg-slate-50" %>
   <% end %>
+
+  <%= link_to "Raw Markdown", "/#{page.language.name}/wiki/#{page.title}.md" , class: "underline text-sky-600 hover:text-sky-500" %>
 </div>
 
 <div class="py-[40px] grid gap-4 grid-cols-2">
