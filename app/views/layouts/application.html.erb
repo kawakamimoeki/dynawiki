@@ -23,7 +23,7 @@
   </head>
 
   <body class='font-sans'>
-    <header class="z-10 bg-white top-0  w-full py-1 border-b px-2 flex justify-between items-center">
+    <header class="z-10 bg-white top-0  w-full py-1 border-b px-3 flex justify-between items-center">
       <div class="flex justify-between items-center gap-2 w-full">
         <a href="/<%= params[:lang] %>" class="flex items-center gap-1 mb-[1px] sm:mb-0">
           <span class="font-bold">Dynawiki</span>
@@ -31,7 +31,7 @@
       </div>
       <%= render partial: "pages/search", locals: { autofocus: false, value: params[:title] } %>
     </header>
-    <main class="py-3 px-5">
+    <main class="p-3">
       <%= yield %>
     </main>
     <% if request.path_info.exclude?("wiki") && request.path_info.exclude?("legal") %>

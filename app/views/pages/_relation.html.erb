@@ -1,8 +1,7 @@
+<li class="list-item list-disc">
 <a
   data-turbo="false"
-  class="p-3 border hover:bg-slate-50 rounded overflow-hidden h-[120px]"
+  class="underline text-sm text-sky-600"
   href="/<%= page.language.name %>/wiki/<%= page.title %>"
->
-  <div class="text-lg font-bold mb-2 line-clamp-1"><%= page.title %></div>
-  <div class="opacity-50 text-sm line-clamp-3"><%= strip_tags(page.html)[..200] %></div>
-</a>
+><%= page.title %></a>
+</li>

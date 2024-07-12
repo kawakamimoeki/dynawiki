@@ -2,14 +2,16 @@
 
 <% if page.references.present? %>
   <div class="">Sources:</div>
-  <div class="w-full text-sm">
+  <ul class="w-full text-sm list-inside list-disc">
   <% page.references.each do |reference| %>
-      <a data-turbo="false" class="break-all hover:opacity-90 block text-sky-600 underline gap-1" href="<%= reference.link %>">
+    <li>
+      <a data-turbo="false" class="break-all hover:opacity-90 text-sky-600 underline gap-1" href="<%= reference.link %>">
         <%= reference.title %>
         <svg class="inline" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.607 11.035v7.929a2.272 2.272 0 0 1-2.3 2.286H5.05a2.272 2.272 0 0 1-2.299-2.3V7.693a2.273 2.273 0 0 1 2.3-2.3h7.928M21.25 2.75L10.679 13.321M15.964 2.75h5.286v5.286"/></svg>
       </a>
+    </li>
   <% end %>
-  </div>
+  </ul>
 <% end %>
 
 <div class="text-sm opacity-40 mt-5">The page contents are not always correct. Please verify any important information.</div>
@@ -24,7 +26,8 @@
   <%= link_to "Raw Markdown", "/#{page.language.name}/wiki/#{page.title}.md" , class: "underline text-sky-600 hover:text-sky-500" %>
 </div>
 
-<div class="py-[40px] grid gap-4 grid-cols-2">
+<div class="mt-5"">Related pages:</div>
+<ul class="list-inside">
   <% page.sources.each do |source| %>
     <% if source.id != page.id %>
       <%= render partial: "pages/relation", locals: { page: source } %>
@@ -35,6 +38,6 @@
       <%= render partial: "pages/relation", locals: { page: destination } %>
     <% end %>
   <% end %>
-</div>
+</ul>
 
 <% end %>
