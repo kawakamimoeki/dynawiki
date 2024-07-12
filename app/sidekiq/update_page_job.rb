@@ -16,12 +16,6 @@ class UpdatePageJob
       target: "footer-buttons-#{@page.id}"
     )
     call_openai
-    @page.broadcast_update_to(
-      "footer-buttons",
-      partial: "pages/footer",
-      locals: { page: @page , hidden: false },
-      target: "footer-buttons-#{@page.id}"
-    )
   end
 
   private
@@ -94,6 +88,13 @@ class UpdatePageJob
     else
       p response
     end
+
+    @page.broadcast_update_to(
+      "footer-buttons",
+      partial: "pages/footer",
+      locals: { page: @page , hidden: false },
+      target: "footer-buttons-#{@page.id}"
+    )
 
     openai.chat(
       parameters: {

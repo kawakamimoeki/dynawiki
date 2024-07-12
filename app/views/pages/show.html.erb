@@ -1,26 +1,30 @@
 <%= turbo_stream_from "#{dom_id(@page)}" %>
 
-<div class="max-w-[800px] mx-auto">
-  <h1 class="font-bold text-3xl mb-5"><%= @page.title %></h1>
-  <div data-controller="page" data-page-lang-value="<%= @page.language.name %>" data-page-id-value="<%= @page.id %>" data-page-title-value="<%= @page.title %>">
-    <div id="<%= dom_id(@page) %>_content" class="prose">
-      <% if @page.content.present? %>
-        <%= render partial: "pages/content", locals: { page: @page } %>
-      <% else %>
-        <%= render partial: "pages/loading" %>
-      <% end %>
+<div class="flex flex-col md:flex-row gap-2 w-full">
+  <div class="grow min-w-[500px]">
+    <h1 class="font-bold text-3xl mb-5"><%= @page.title %></h1>
+    <div data-controller="page" data-page-lang-value="<%= @page.language.name %>" data-page-id-value="<%= @page.id %>" data-page-title-value="<%= @page.title %>">
+      <div id="<%= dom_id(@page) %>_content" class="prose">
+        <% if @page.content.present? %>
+          <%= render partial: "pages/content", locals: { page: @page } %>
+        <% else %>
+          <%= render partial: "pages/loading" %>
+        <% end %>
+      </div>
+    </div>
+    <div id="actionButtons" class="absolute bg-slate-100 p-1  bg-opacity-90 shadow-lg border border-slate-300 rounded" style="visibility: hidden;">
+      <a data-turbo="false" id="jumpButton" class="block text-sm py-1 px-2 rounded hover:bg-blue-500 hover:text-white ">
+        Search this word
+      </a>
+      <a data-turbo="false" id="digButton" class="block text-sm py-1 px-2 rounded hover:bg-blue-500 hover:text-white">
+        Search in combination with current title
+      </a>
     </div>
   </div>
-  <div id="actionButtons" class="absolute bg-slate-100 p-1  bg-opacity-90 shadow-lg border border-slate-300 rounded" style="visibility: hidden;">
-    <a data-turbo="false" id="jumpButton" class="block text-sm py-1 px-2 rounded hover:bg-blue-500 hover:text-white ">
-      Search this word
-    </a>
-    <a data-turbo="false" id="digButton" class="block text-sm py-1 px-2 rounded hover:bg-blue-500 hover:text-white">
-      Search in combination with current title
-    </a>
-  </div>
-  <%= turbo_stream_from "footer-buttons" %>
-  <div id="footer-buttons-<%= @page.id %>">
-    <%= render partial: "pages/footer", locals: { page: @page, hidden: !@page.content.present? } %>
+  <div class="max-w-[500px] ">
+    <%= turbo_stream_from "footer-buttons" %>
+    <div id="footer-buttons-<%= @page.id %>">
+      <%= render partial: "pages/footer", locals: { page: @page, hidden: !@page.content.present? } %>
+    </div>
   </div>
 </div>
