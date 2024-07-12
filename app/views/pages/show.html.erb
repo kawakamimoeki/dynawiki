@@ -1,7 +1,7 @@
 <%= turbo_stream_from "#{dom_id(@page)}" %>
 
 <div class="flex flex-col md:flex-row gap-2 w-full">
-  <div class="grow min-w-[500px]">
+  <div class="grow min-w-[500px] max-w-[800px]">
     <h1 class="font-bold text-3xl mb-5"><%= @page.title %></h1>
     <div data-controller="page" data-page-lang-value="<%= @page.language.name %>" data-page-id-value="<%= @page.id %>" data-page-title-value="<%= @page.title %>">
       <div id="<%= dom_id(@page) %>_content" class="prose">
