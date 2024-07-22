@@ -61,7 +61,7 @@ class UpdatePageJob
           begin
             res = openai.chat(
               parameters: {
-                model: "gpt-3.5-turbo",
+                model: "gpt-4o-mini",
                 messages: [
                   {
                     role: "user",
@@ -98,7 +98,7 @@ class UpdatePageJob
 
     openai.chat(
       parameters: {
-        model: "gpt-3.5-turbo",
+        model: "gpt-4o-mini",
         messages: [
           {
             role: "user",
