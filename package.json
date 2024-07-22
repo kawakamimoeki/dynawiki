@@ -20,5 +20,6 @@
     "@tailwindcss/typography": "^0.5.13",
     "vite": "^5.0.0",
     "vite-plugin-ruby": "^5.0.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }

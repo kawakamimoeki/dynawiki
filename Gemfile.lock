@@ -97,6 +97,8 @@ GEM
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    dockerfile-rails (1.6.17)
+      rails (>= 3.0.0)
     drb (2.2.1)
     dry-cli (1.0.0)
     error_highlight (0.6.0)
@@ -283,6 +285,7 @@ DEPENDENCIES
   commonmarker
   cssbundling-rails
   debug
+  dockerfile-rails (>= 1.6)
   error_highlight (>= 0.4.0)
   google_search_results (~> 2.2)
   jbuilder
