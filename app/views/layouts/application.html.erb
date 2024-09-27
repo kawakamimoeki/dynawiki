@@ -11,8 +11,13 @@
       gtag('config', 'G-2S2MLRLW6Z');
     </script>
     <% end %>
-    <title><%= @page ? "#{@page.title} - Dynawiki" : "Dynawiki" %></title>
+    <title><%= @page ? @page.title : "Dynawiki" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="Dynawiki">
+    <meta name="twitter:title" content="<%= @page ? @page.title : 'Dynawiki' %>">
+    <meta name="twitter:description" content="<%= @page ? @page.content.truncate(200) : 'Dynawiki is a wiki site that dynamically generates wiki pages with LLM (ChatGPT).' %>">
+    <meta name="twitter:image" content="https://dynawiki.com/ogp.png">
     <link rel=”icon” href=“/favicon.ico”>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
