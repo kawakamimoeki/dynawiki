@@ -74,7 +74,7 @@ gem "tailwindcss-rails", "~> 2.6"
 
 gem "vite_rails", "~> 3.0"
 
-gem "commonmarker"
+gem "redcarpet"
 
 gem "wikipedia-client", "~> 1.17"
 

@@ -10,10 +10,6 @@ class Page < ApplicationRecord
   belongs_to :language
 
   def html
-    sanitize(
-      Commonmarker.to_html(
-        self.content || "", options: { parse: { smart: true }}
-      )
-    ) || ""
+    Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(filter_html: false), autolink: true, tables: true).render(self.content || "").html_safe
   end
 end

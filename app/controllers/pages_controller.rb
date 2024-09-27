@@ -24,14 +24,20 @@
     @lang = Language.find_by(name: params[:lang])
     @ref = Page.find_by(title: params[:ref])
     @page = Page.joins(:language).find_by(title: params[:title], languages: { name: params[:lang] })
-    @page.sources << @ref if @ref && @page && !@page.link_to_sources.find_by(source_id: @ref.id)
+    if @ref && @page && !@page.link_to_sources.find_by(source_id: @ref.id)
+      @page.sources << @ref
+      @ref.update(content: @ref.content.gsub(@page.title.gsub("#{@ref.title} ", ""), "<span style='color: blue;'>#{@page.title.gsub("#{@ref.title} ", "")}</span>"))
+    end
 
     if @page
       return
     end
 
     @page = Page.joins(:language).create(title: params[:title], content: "", language_id: Language.find_by(name: params[:lang]).id)
-    @page.sources << @ref if @ref
+    if @ref
+      @page.sources << @ref
+      @ref.update(content: @ref.content.gsub(@page.title.gsub("#{@ref.title} ", ""), "<span style='color: green;'>#{@page.title.gsub("#{@ref.title} ", "")}</span>"))
+    end
   end
 
   def markdown
