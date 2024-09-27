@@ -32,21 +32,23 @@
     -->
   </head>
 
-  <body class='font-sans'>
-    <header class="z-10 bg-white top-0  w-full py-1 border-b px-3 flex justify-between items-center">
+  <body class='font-mono'>
+    <header class="z-10 bg-white top-0 w-full py-1 border-b px-3 flex justify-between items-center">
+    <div class="w-full max-w-[800px] mx-auto flex justify-between">
       <div class="flex justify-between items-center gap-2 w-full">
         <a href="/<%= params[:lang] %>" class="flex items-center gap-1 mb-[1px] sm:mb-0">
           <span class="font-bold">Dynawiki</span>
         </a>
       </div>
       <%= render partial: "pages/search", locals: { autofocus: false, value: params[:title] } %>
+    </div>
     </header>
     <main class="p-3">
       <%= yield %>
     </main>
     <% if request.path_info.exclude?("wiki") && request.path_info.exclude?("legal") %>
-    <footer class="p-4 prose text-sm">
-      <div class="flex gap-1 flex-wrap">
+    <footer class="p-4 prose text-sm flex justify-center flex-col mx-auto text-center">
+      <div class="flex gap-1 flex-wrap justify-center">
         <div><a href="/en">English</a></div>
         <div>/</div>
         <div><a href="/ja">Japanese</a></div>
