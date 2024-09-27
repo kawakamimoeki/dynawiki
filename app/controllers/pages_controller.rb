@@ -36,7 +36,7 @@
     @page = Page.joins(:language).create(title: params[:title], content: "", language_id: Language.find_by(name: params[:lang]).id)
     if @ref
       @page.sources << @ref
-      @ref.update(content: @ref.content.gsub(@page.title.gsub("#{@ref.title} ", ""), "<span style='color: green;'>#{@page.title.gsub("#{@ref.title} ", "")}</span>"))
+      @ref.update(content: @ref.content.gsub(@page.title.gsub("#{@ref.title} ", ""), "<span style='color: blue;'>#{@page.title.gsub("#{@ref.title} ", "")}</span>"))
     end
   end
 
