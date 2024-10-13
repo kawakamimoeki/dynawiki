@@ -10,7 +10,7 @@ console_command = '/rails/bin/rails console'
 [build]
 
 [deploy]
-release_command = 'bundle exec rake clapton:compile && bundle exec rake db:prepare'
+release_command = 'bundle exec rake db:prepare'
 
 [processes]
 app = './bin/rails server'
