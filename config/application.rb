@@ -43,3 +43,5 @@ module DynamicWiki
     config.eager_load_paths -= [Rails.root.join('app', 'components')]
   end
 end
+
+Rails.autoloaders.main.ignore(Rails.root.join('app/components'))
