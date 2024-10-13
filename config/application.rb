@@ -38,9 +38,6 @@ module DynamicWiki
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-
-    config.autoload_paths -= [Rails.root.join('app', 'components')]
-    config.eager_load_paths -= [Rails.root.join('app', 'components')]
   end
 end
 
