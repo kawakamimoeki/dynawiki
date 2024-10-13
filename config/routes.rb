@@ -18,4 +18,6 @@ Rails.application.routes.draw do
     post "search", to: "pages#search", as: :search_page
     post "wiki/:id", to: "pages#update", as: :update_page
   end
+
+  mount Clapton::Engine => "/clapton"
 end

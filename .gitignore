@@ -47,3 +47,4 @@ node_modules
 *.local
 
 dump.rdb
+public/clapton
